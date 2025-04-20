@@ -21,7 +21,7 @@ body {
 .container {
   max-width: 900px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 25px;
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
@@ -115,16 +115,27 @@ p {
 }
 
 .skin-item {
-  background: #ffffff;
-  padding: 14px 18px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   display: flex;
-  justify-content: space-between; /* Memastikan tombol tetap di kanan */
-  align-items: center;
-  gap: 8px; /* Tambahkan jarak antara teks dan tombol */
-  flex-wrap: wrap; /* Membungkus elemen jika terlalu panjang */
+  flex-direction: column; /* Ubah arah menjadi kolom */
+  align-items: flex-start; /* Teks dan tombol rata kiri */
+  gap: 8px; /* Jarak antara teks dan tombol */
+  padding: 14px 18px;
+  background: #ffffff;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.skin-item span {
+  max-width: 100%; /* Biarkan teks menggunakan seluruh lebar */
+  white-space: normal; /* Bungkus teks jika terlalu panjang */
+  overflow: visible; /* Pastikan teks tidak dipotong */
+}
+
+.skin-item .actions {
+  display: flex;
+  gap: 8px; /* Jarak antar tombol */
 }
 
 .skin-item:hover {
@@ -132,19 +143,10 @@ p {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
 
-.skin-item span {
-  font-size: 14px;
-  font-weight: 600;
-  color: #333;
-  max-width: calc(100% - 100px);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .skin-item:has(input[type="checkbox"]:checked) {
   outline: 2px solid #28a745;
   animation: highlight 0.4s ease-in-out;
+  outline-offset: -2px;   /* tarik outline 2px ke dalam */
 }
 
 .skin-item.valid-geometry {
@@ -165,16 +167,26 @@ p {
 }
 
 .model-item {
-  background: #ffffff;
+  display: flex;
+  flex-direction: column; /* Ubah arah menjadi kolom */
+  align-items: flex-start; /* Teks dan tombol rata kiri */
+  gap: 8px; /* Jarak antara teks dan tombol */
   padding: 14px 18px;
+  background: #ffffff;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  display: flex;
-  justify-content: space-between; /* Memastikan tombol tetap di kanan */
-  align-items: center;
-  gap: 8px; /* Tambahkan jarak antara teks dan tombol */
-  flex-wrap: wrap; /* Membungkus elemen jika terlalu panjang */
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.model-item span {
+  max-width: 100%; /* Biarkan teks menggunakan seluruh lebar */
+  white-space: normal; /* Bungkus teks jika terlalu panjang */
+  overflow: visible; /* Pastikan teks tidak dipotong */
+}
+
+.model-item .actions {
+  display: flex;
+  gap: 8px; /* Jarak antar tombol */
 }
 
 .model-item:hover {
@@ -182,19 +194,10 @@ p {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
 
-.model-item span {
-  font-size: 14px;
-  font-weight: 600;
-  color: #333;
-  max-width: calc(100% - 100px);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .model-item:has(input[type="checkbox"]:checked) {
   outline: 2px solid #28a745;
   animation: highlight 0.4s ease-in-out;
+  outline-offset: -2px;
 }
 
 /* Keyframes for highlight effect */
@@ -205,6 +208,7 @@ p {
 }
 
 button {
+  flex-shrink: 0; /* Tombol tidak mengecil */
   padding: 10px 16px;
   background-color: #28a745;
   color: #fff;
@@ -213,10 +217,6 @@ button {
   cursor: pointer;
   font-size: 15px;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  flex-shrink: 0;
-  min-width: 80px;
-  max-width: 100%;
-  text-overflow: ellipsis;
 }
 
 button:hover {
