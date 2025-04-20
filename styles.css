@@ -2,15 +2,16 @@
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #f7f9fb;
-  margin: 0;
-  padding: 0;
+  background-color: #f4f7fc;
   color: #333;
-  user-select: none;
+  line-height: 1.6;
+  padding: 20px;
 }
 
 .hidden {
@@ -18,36 +19,41 @@ body {
 }
 
 .container {
-  max-width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
   padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
 /* Tab Navigation */
 .tabs {
   display: flex;
   justify-content: center;
+  gap: 12px;
   margin-bottom: 20px;
-  gap: 10px;
 }
 
 .tab-btn {
-  padding: 10px 20px;
-  background-color: #f1f1f1;
+  padding: 12px 20px;
+  background-color: #e0e0e0;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
-  transition: all 0.3s ease;
   color: #555;
-}
-
-.tab-btn:hover {
-  background-color: #e0e0e0;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .tab-btn.active {
   background-color: #0078d4;
-  color: white;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.tab-btn:hover {
+  background-color: #d0d0d0;
 }
 
 .tab-content {
@@ -59,17 +65,17 @@ body {
 }
 
 h1 {
-  font-size: 22px;
-  text-align: center;
+  font-size: 26px;
   color: #0078d4;
-  margin-bottom: 8px;
+  text-align: center;
+  margin-bottom: 16px;
 }
 
 p {
+  font-size: 15px;
+  color: #555;
   text-align: center;
-  margin-bottom: 16px;
-  font-size: 14px;
-  color: #666;
+  margin-bottom: 20px;
 }
 
 #skinFileInput,
@@ -79,21 +85,21 @@ p {
 }
 
 .custom-file-btn {
-  display: block;
-  margin: 0 auto 24px;
-  padding: 10px 18px;
+  display: inline-block;
+  padding: 12px 18px;
   background-color: #0078d4;
   color: #fff;
-  text-align: center;
   border-radius: 8px;
-  font-weight: bold;
+  text-align: center;
   cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.2s;
+  font-size: 15px;
+  margin-bottom: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .custom-file-btn:hover {
   background-color: #005a9e;
+  transform: translateY(-2px);
 }
 
 /* Skin List Styles */
@@ -105,27 +111,24 @@ p {
 
 .skin-item {
   background: #ffffff;
-  padding: 14px 16px;
-  margin: 10px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  padding: 14px 18px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: transform 0.2s, outline 0.2s;
-  outline: 2px solid transparent;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .skin-item:hover {
   transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
 
 .skin-item span {
   font-size: 14px;
   font-weight: 600;
-  flex: 1;
-  margin-right: 10px;
-  word-break: break-all;
+  color: #333;
 }
 
 .skin-item:has(input[type="checkbox"]:checked) {
@@ -150,26 +153,24 @@ p {
 
 .model-item {
   background: #ffffff;
-  padding: 14px 16px;
-  margin: 10px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  padding: 14px 18px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: transform 0.2s;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .model-item:hover {
   transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
 
 .model-item span {
   font-size: 14px;
   font-weight: 600;
-  flex: 1;
-  margin-right: 10px;
-  word-break: break-all;
+  color: #333;
 }
 
 .model-item:has(input[type="checkbox"]:checked) {
@@ -185,20 +186,19 @@ p {
 }
 
 button {
-  padding: 8px 12px;
-  background-color: #0078d4;
-  color: white;
-  font-weight: 600;
+  padding: 10px 16px;
+  background-color: #28a745;
+  color: #fff;
   border: none;
-  border-radius: 6px;
-  font-size: 14px;
+  border-radius: 8px;
   cursor: pointer;
-  flex-shrink: 0;
-  transition: background-color 0.2s;
+  font-size: 15px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
-  background-color: #005a9e;
+  background-color: #218838;
+  transform: translateY(-2px);
 }
 
 .merge-wrapper {
@@ -213,13 +213,11 @@ button:hover {
 #mergeSkinAllBtn,
 #mergeGeometrySelectedBtn,
 #mergeGeometryFilesBtn {
-  padding: 8px 16px;
+  padding: 10px 16px;
   background-color: #28a745;
   color: #fff;
-  font-weight: 600;
   border: none;
-  border-radius: 6px;
-  font-size: 14px;
+  border-radius: 8px;
   cursor: pointer;
 }
 
@@ -244,7 +242,7 @@ button:hover {
 
 .validation-section {
   text-align: center;
-  margin: 20px 0;
+  margin-top: 20px;
 }
 
 #validateBtn {
@@ -259,8 +257,7 @@ button:hover {
   background-color: #f57c00;
 }
 
-#validationResult {
-  display: none;
+#validationResult::hidden {
   margin-top: 20px;
   padding: 15px;
   border-radius: 8px;
@@ -269,11 +266,13 @@ button:hover {
 
 .validation-error {
   background-color: #ffebee;
+  color: #ff5252;
   border: 2px solid #ff5252;
 }
 
 .validation-success {
   background-color: #e8f5e9;
+  color: #4caf50;
   border: 2px solid #4caf50;
 }
 
@@ -293,54 +292,18 @@ button:hover {
   align-items: center;
 }
 
-.skins-editor-entry {
-  margin-bottom: 20px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-}
-
-.skins-editor-entry label {
-  display: block;
-  margin-bottom: 8px;
-}
-
-.skins-editor-entry input[type="text"] {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.skins-editor-entry .remove-entry-btn {
-  background-color: #ff4d4d;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.skins-editor-entry .remove-entry-btn:hover {
-  background-color: #ff1a1a;
-}
-
 @media (max-width: 600px) {
-  .tabs {
-    flex-direction: column;
-    gap: 5px;
+  .container {
+    padding: 16px;
   }
-  
-  .skin-item, .model-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+
+  .tab-btn {
+    font-size: 13px;
+    padding: 10px 14px;
   }
-  
-  .skin-item span, .model-item span {
-    margin-right: 0;
-    margin-bottom: 8px;
+
+  button {
+    font-size: 13px;
+    padding: 8px 12px;
   }
 }
