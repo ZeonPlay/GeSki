@@ -209,6 +209,8 @@ function openSkinForm(index = null) {
     skinEditorForm.geometry.value = skin.geometry || '';
     skinEditorForm.texture.value = skin.texture || '';
     skinEditorForm.type.value = skin.type || 'free';
+    skinEditorForm.hideArmor.value = skin.hide_armor ? 'true' : 'false'; // Set nilai hide_armor
+    skinEditorForm.enableAttachables.value = skin.enable_attachables !== undefined ? (skin.enable_attachables ? 'true' : 'false') : 'none'; // Set nilai enable_attachables atau none
 
     // Tambahkan properti opsional jika ada
     if (skin.animations) {
@@ -230,6 +232,8 @@ function openSkinForm(index = null) {
   } else {
     formTitle.textContent = 'Tambah Skin Baru';
     skinEditorForm.reset();
+    skinEditorForm.hideArmor.value = 'false'; // Set nilai default untuk hide_armor
+    skinEditorForm.enableAttachables.value = 'none'; // Set nilai default untuk enable_attachables
   }
 
   document.body.classList.add('modal-open'); // Kunci scroll halaman utama
@@ -244,9 +248,15 @@ skinEditorForm.addEventListener('submit', (e) => {
     geometry: skinEditorForm.geometry.value,
     texture: skinEditorForm.texture.value,
     type: skinEditorForm.type.value,
+    hide_armor: skinEditorForm.hideArmor.value === 'true', // Konversi ke boolean
   };
 
-  // Tambahkan properti opsional jika ada
+  // Tambahkan enable_attachables hanya jika ada nilai yang dipilih
+  if (skinEditorForm.enableAttachables.value !== 'none') {
+    newSkin.enable_attachables = skinEditorForm.enableAttachables.value === 'true'; // Konversi ke boolean
+  }
+
+  // Tambahkan properti opsional lainnya jika ada
   if (document.getElementById('animations')) {
     newSkin.animations = document.getElementById('animations').value.split(',').map(item => item.trim());
   }
