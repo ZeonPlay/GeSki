@@ -268,12 +268,13 @@ skinEditorForm.addEventListener('submit', (e) => {
 
   displaySkins(skinsData.skins);
   skinModal.classList.add('hidden'); // Sembunyikan modal setelah menyimpan
+  document.body.classList.remove('modal-open'); // Buka scroll halaman utama
 });
 
 // Fungsi untuk membatalkan pengeditan
 cancelSkinBtn.addEventListener('click', () => {
-  document.body.classList.remove('modal-open'); // Buka scroll halaman utama
   skinModal.classList.add('hidden'); // Sembunyikan modal
+  document.body.classList.remove('modal-open'); // Buka scroll halaman utama
 });
 
 // Fungsi untuk menghapus skin
