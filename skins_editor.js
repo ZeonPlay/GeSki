@@ -162,11 +162,13 @@ importJson.addEventListener('change', () => {
   const reader = new FileReader();
   reader.onload = (e) => {
     try {
-      skinsData = JSON.parse(e.target.result);
+      // Gunakan JSON5 untuk parsing file
+      skinsData = JSON5.parse(e.target.result);
       displaySkins(skinsData.skins);
       fileContent.classList.remove('hidden');
     } catch (err) {
-      alert('File JSON tidak valid!');
+      alert('File JSON tidak valid atau tidak didukung!');
+      console.error(err);
     }
   };
   reader.readAsText(file);
