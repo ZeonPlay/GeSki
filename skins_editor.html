@@ -12,22 +12,63 @@
     <div id="sideNav" class="side-nav hidden">
       <a href="index.html" class="nav-link">Home</a>
       <a href="skins_editor.html" class="nav-link">Skins Editor</a>
+
+      <div class="nav-footer">
+        <p>&copy; 2025 Minecraft Tools</p>
+        <p>Version 1.0.0</p>
+      </div>
     </div>
   </div>
 
   <div class="container">
     <h1>Skins Editor</h1>
-    <p>Coming Soon</p>
+    <p>Unggah file <code>skins.json</code> Anda untuk mulai mengedit</p>
+    <input type="file" id="importJson" accept=".json" style="display: none;">
+    <button id="loadJsonBtn">Muat File</button>
+
+    <div id="fileContent" class="hidden">
+      <h2>Daftar Skin</h2>
+      <ul id="skinList"></ul>
+      <button id="addSkinBtn">Tambah Skin Baru</button>
+      <button id="saveJsonBtn">Simpan dan Unduh JSON</button>
+    </div>
   </div>
 
-  <script>
-    const burgerIcon = document.getElementById('burgerIcon');
-    const sideNav = document.getElementById('sideNav');
+  <!-- Modal untuk formulir skin -->
+  <div id="skinModal" class="modal hidden">
+    <div class="modal-content">
+      <h2 id="formTitle">Tambah/Edit Skin</h2>
+      <form id="skinEditorForm">
+        <label for="localizationName">Localization Name:</label>
+        <input type="text" id="localizationName" name="localizationName" required>
 
-    burgerIcon.addEventListener('click', () => {
-      sideNav.classList.toggle('visible');
-      sideNav.classList.toggle('hidden');
-    });
-  </script>
+        <label for="geometry">Geometry:</label>
+        <input type="text" id="geometry" name="geometry" required>
+
+        <label for="texture">Texture:</label>
+        <input type="text" id="texture" name="texture" required>
+
+        <label for="type">Type:</label>
+        <select id="type" name="type">
+          <option value="free">Free</option>
+          <option value="paid">Paid</option>
+        </select>
+
+        <div id="optionalProperties">
+          <h3>Properti Opsional</h3>
+          <button type="button" id="addAnimationsBtn">Add Animations</button>
+          <button type="button" id="addAttachmentsBtn">Add Attachments</button>
+          <button type="button" id="addOverlayBtn">Add Overlay</button>
+          <button type="button" id="addColorBtn">Add Color</button>
+          <div id="optionalFields"></div>
+        </div>
+
+        <button type="submit" id="saveSkinBtn">Simpan Skin</button>
+        <button type="button" id="cancelSkinBtn">Batal</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="skins_editor.js"></script>
 </body>
 </html>

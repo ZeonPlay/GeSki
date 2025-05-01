@@ -113,6 +113,7 @@ p {
   gap: 12px;
   word-wrap: break-word; /* Memastikan teks panjang terputus */
   overflow: auto; /* Tambahkan scrollbar jika diperlukan */
+  padding: 12px;
 }
 
 .skin-item {
@@ -215,6 +216,7 @@ button {
   color: #fff;
   border: none;
   border-radius: 8px;
+  margin: 4px;
   cursor: pointer;
   font-size: 15px;
   transition: background-color 0.3s ease, transform 0.2s ease;
@@ -473,4 +475,145 @@ button:hover {
 .nav-footer p:first-child {
   font-weight: bold;
   color: #fff;
+}
+
+/* Formulir Skin Editor */
+#skinForm {
+  margin-top: 20px;
+  padding: 20px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+#skinForm.hidden {
+  display: none;
+}
+
+#skinEditorForm label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+#skinEditorForm input,
+#skinEditorForm select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#skinEditorForm button {
+  padding: 10px 15px;
+  background: #0078d4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 2px;
+}
+
+#skinEditorForm button:hover {
+  background: #005a9e;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Overlay gelap */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow: hidden; /* Mencegah modal meluap */
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  max-height: 90%; /* Batasi tinggi modal */
+  overflow-y: auto; /* Tambahkan scroll jika konten terlalu panjang */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: #333;
+}
+
+.modal-content form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.modal-content form input,
+.modal-content form select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.modal-content form button {
+  padding: 10px 15px;
+  background: #0078d4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal-content form button:hover {
+  background: #005a9e;
+}
+
+body.modal-open {
+  overflow: hidden; /* Kunci scroll pada halaman utama */
+}
+
+/* Gaya untuk tombol properti opsional dalam tata letak vertikal */
+#optionalProperties {
+  display: flex;
+  flex-direction: column; /* Atur tombol secara vertikal */
+  gap: 10px; /* Jarak antar tombol */
+  margin-top: 15px;
+}
+
+#optionalProperties button {
+  padding: 8px 12px; /* Ukuran tombol lebih kecil */
+  font-size: 14px; /* Ukuran font lebih kecil */
+  background-color: #0078d4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#optionalProperties button:hover {
+  background-color: #005a9e;
+  transform: translateY(-2px);
+}
+
+#optionalProperties button:active {
+  transform: translateY(0);
 }
