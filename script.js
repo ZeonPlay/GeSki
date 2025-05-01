@@ -152,6 +152,39 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('.validation-section').classList.add('hidden');
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+  const burgerIcon = document.getElementById('burgerIcon');
+  const sideNav = document.getElementById('sideNav');
+  const body = document.body;
+
+  // Fungsi untuk menutup navigasi
+  function closeSideNav() {
+    sideNav.classList.add('hidden');
+    sideNav.classList.remove('visible');
+  }
+
+  // Toggle navigasi saat ikon burger diklik
+  burgerIcon.addEventListener('click', (e) => {
+    e.stopPropagation(); // Mencegah klik pada ikon burger menutup navigasi
+    sideNav.classList.toggle('visible');
+    sideNav.classList.toggle('hidden');
+  });
+
+  // Tutup navigasi saat klik di luar navigasi
+  body.addEventListener('click', (e) => {
+    if (!sideNav.contains(e.target) && !burgerIcon.contains(e.target)) {
+      closeSideNav();
+    }
+  });
+
+  // Tutup navigasi saat tombol ESC ditekan
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && sideNav.classList.contains('visible')) {
+      closeSideNav();
+    }
+  });
+});
+
 // ==========================================
 // Skin Splitter & Merger Functionality
 // ==========================================

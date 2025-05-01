@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skins Editor</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="burger-menu">
+    <button id="burgerIcon" class="burger-icon">☰</button>
+    <div id="sideNav" class="side-nav hidden">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="skins_editor.html" class="nav-link">Skins Editor</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>Skins Editor</h1>
+    <p>Coming Soon</p>
+  </div>
+
+  <script>
+    const burgerIcon = document.getElementById('burgerIcon');
+    const sideNav = document.getElementById('sideNav');
+
+    burgerIcon.addEventListener('click', () => {
+      sideNav.classList.toggle('visible');
+      sideNav.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>
