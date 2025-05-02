@@ -185,6 +185,23 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+// Ambil elemen audio
+const clickSound = document.getElementById('clickSound');
+
+// Fungsi untuk memutar suara klik
+function playClickSound() {
+  clickSound.currentTime = 0; // Reset audio ke awal
+  clickSound.play();
+}
+
+// Tambahkan event listener ke semua tombol
+document.addEventListener('DOMContentLoaded', () => {
+  const buttons = document.querySelectorAll('button');
+  buttons.forEach(button => {
+    button.addEventListener('click', playClickSound);
+  });
+});
+
 // ==========================================
 // Skin Splitter & Merger Functionality
 // ==========================================
