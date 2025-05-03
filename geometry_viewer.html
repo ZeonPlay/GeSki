@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geometry Viewer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/svg+xml" href="assets/image/brace.svg">
+</head>
+<body>
+    <div class="burger-menu">
+        <button id="burgerIcon" class="burger-icon">☰</button>
+        <div id="sideNav" class="side-nav hidden">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="skins_editor.html" class="nav-link">Skins Editor</a>
+            <a href="geometry_viewer.html" class="nav-link">Blockbench</a>
+            
+            <div class="nav-footer">
+                <p>&copy; GeSki</p>
+                <p>Version 1.0.0</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="blockbenchContainer">
+            <iframe 
+                id="blockbenchFrame"
+                src="web.blockbench.net/index.html"
+                frameborder="0"
+                allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+
+    <audio id="clickSound" src="assets/audio/click.ogg" preload="auto"></audio>
+    <script type="module" src="scripts/geometry_viewer.js"></script>
+</body>
+</html>
