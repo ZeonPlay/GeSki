@@ -40,47 +40,85 @@
   <!-- Modal untuk formulir skin -->
   <div id="skinModal" class="modal hidden">
     <div class="modal-content">
-      <h2 id="formTitle">Tambah/Edit Skin</h2>
+      <div class="modal-header">
+        <h2 id="formTitle">Tambah/Edit Skin</h2>
+        <button type="button" id="cancelSkinBtn" class="close-btn">
+          <span class="material-icons">Close</span>
+        </button>
+      </div>
+      
       <form id="skinEditorForm">
-        <label for="localizationName">Localization Name:</label>
-        <input type="text" id="localizationName" name="localizationName" required>
+        <div class="form-group">
+          <label for="localizationName">Localization Name</label>
+          <input type="text" id="localizationName" name="localizationName" required>
+        </div>
 
-        <label for="geometry">Geometry:</label>
-        <input type="text" id="geometry" name="geometry" required>
+        <div class="form-group">
+          <label for="geometry">Geometry</label>
+          <input type="text" id="geometry" name="geometry" required>
+        </div>
 
-        <label for="texture">Texture:</label>
-        <input type="text" id="texture" name="texture" required>
+        <div class="form-group">
+          <label for="texture">Texture</label>
+          <input type="text" id="texture" name="texture" required>
+        </div>
 
-        <label for="type">Type:</label>
-        <select id="type" name="type">
-          <option value="free">Free</option>
-          <option value="paid">Paid</option>
-        </select>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="type">Type</label>
+            <select id="type" name="type">
+              <option value="free">Free</option>
+              <option value="paid">Paid</option>
+            </select>
+          </div>
 
-        <label for="hideArmor">Hide Armor:</label>
-        <select id="hideArmor" name="hideArmor" required>
-          <option value="true">True</option>
-          <option value="false">False</option>
-        </select>
+          <div class="form-group">
+            <label for="hideArmor">Hide Armor</label>
+            <select id="hideArmor" name="hideArmor" required>
+              <option value="false">No</option>
+              <option value="true">Yes</option>
+            </select>
+          </div>
+        </div>
 
-        <label for="enableAttachables">Enable Attachables:</label>
-        <select id="enableAttachables" name="enableAttachables">
-          <option value="none">None</option>
-          <option value="true">True</option>
-          <option value="false">False</option>
-        </select>
+        <div class="form-group">
+          <label for="enableAttachables">Enable Attachables</label>
+          <select id="enableAttachables" name="enableAttachables">
+            <option value="none">None</option>
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select>
+        </div>
 
         <div id="optionalProperties">
-          <h3>Properti Opsional</h3>
-          <button type="button" id="addAnimationsBtn">Add Animations</button>
-          <button type="button" id="addAttachmentsBtn">Add Attachments</button>
-          <button type="button" id="addOverlayBtn">Add Overlay</button>
-          <button type="button" id="addColorBtn">Add Color</button>
+          <h3>Optional Properties</h3>
+          <div class="optional-buttons">
+            <button type="button" id="addAnimationsBtn">
+              <span class="material-icons"></span>
+              Add Animations
+            </button>
+            <button type="button" id="addAttachmentsBtn">
+              <span class="material-icons"></span>
+              Add Attachments
+            </button>
+            <button type="button" id="addOverlayBtn">
+              <span class="material-icons"></span>
+              Add Overlay
+            </button>
+            <button type="button" id="addColorBtn">
+              <span class="material-icons"></span>
+              Add Color
+            </button>
+          </div>
           <div id="optionalFields"></div>
         </div>
 
-        <button type="submit" id="saveSkinBtn">Simpan Skin</button>
-        <button type="button" id="cancelSkinBtn">Batal</button>
+        <div class="form-actions">
+          <button type="submit" id="saveSkinBtn">
+            <span class="material-icons"></span>
+            Save Skin
+          </button>
+        </div>
       </form>
     </div>
   </div>

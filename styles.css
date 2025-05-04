@@ -1,18 +1,34 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
+/* Modern theme colors and variables */
+:root {
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --background: #f8fafc;
+  --card-bg: #ffffff;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --border-color: #e2e8f0;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+}
+
+/* Reset and base styles */
 * {
-  user-select: none;
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  user-select: none;
 }
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #f4f7fc;
-  color: #333;
-  line-height: 1.6;
-  padding: 20px;
+  background-color: var(--background);
+  color: var(--text-primary);
+  line-height: 1.5;
+  padding: 1.5rem;
 }
 
 .hidden {
@@ -20,44 +36,63 @@ body {
 }
 
 .container {
-  max-width: 900px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 25px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* Mencegah elemen meluap */
+  overflow: hidden;
 }
 
-/* Tab Navigation */
+/* Header and Typography */
+h1 {
+  font-size: 2rem;
+  color: var(--text-primary);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+#skinFileInput,
+#geometryFileInput,
+#geometryFile {
+  display: none;
+}
+
+/* Tabs */
 .tabs {
   display: flex;
   justify-content: center;
-  gap: 12px;
-  margin-bottom: 20px;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 0.5rem;
+  background: var(--background);
+  border-radius: var(--radius-md);
 }
 
 .tab-btn {
-  padding: 12px 20px;
-  background-color: #e0e0e0;
+  padding: 0.75rem 1.5rem;
+  background: transparent;
   border: none;
-  border-radius: 8px;
-  cursor: pointer;
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
   font-weight: 600;
-  color: #555;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .tab-btn.active {
-  background-color: #0078d4;
-  color: #fff;
-  transform: scale(1.05);
-}
-
-.tab-btn:hover {
-  background-color: #d0d0d0;
+  background: var(--primary-color);
+  color: white;
 }
 
 .tab-content {
@@ -68,87 +103,123 @@ body {
   display: block;
 }
 
-h1 {
-  font-size: 26px;
-  color: #0078d4;
-  text-align: center;
-  margin-bottom: 16px;
+/* Buttons */
+button {
+  padding: 0.75rem 1.5rem;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-p {
-  font-size: 15px;
-  color: #555;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-#skinFileInput,
-#geometryFileInput,
-#geometryFile {
-  display: none;
+button:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
 }
 
 .custom-file-btn {
   display: inline-block;
-  padding: 10px 20px;
-  background-color: #4caf50;
+  padding: 0.75rem 1.5rem;
+  background: var(--primary-color);
   color: white;
-  font-size: 14px;
-  font-weight: bold;
-  text-align: center;
-  border: none;
-  border-radius: 5px;
+  border-radius: var(--radius-md);
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-weight: 500;
+  text-align: center;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
 }
 
 .custom-file-btn:hover {
-  background-color: #388e3c;
+  background: var(--primary-hover);
 }
 
-/* Skin List Styles */
-#skinList {
+/* Merge buttons wrapper styles */
+.merge-wrapper {
+  display: none; /* Hide by default */
+  gap: 1rem;
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+.merge-wrapper button {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-  word-wrap: break-word; /* Memastikan teks panjang terputus */
-  overflow: auto; /* Tambahkan scrollbar jika diperlukan */
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* When visible */
+.merge-wrapper.visible {
+  display: flex;
+}
+
+/* Lists */
+#skinList, #modelList {
+  display: grid;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  word-wrap: break-word;
+  overflow-x: auto; /* Enable horizontal scroll */
   padding: 12px;
 }
 
-.skin-item {
+.skin-item, .model-item {
+  background: var(--card-bg);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
   display: flex;
-  flex-direction: column; /* Ubah arah menjadi kolom */
-  align-items: flex-start; /* Teks dan tombol rata kiri */
-  gap: 8px; /* Jarak antara teks dan tombol */
-  padding: 14px 18px;
-  background: #ffffff;
-  border-radius: 8px;
-  margin-bottom: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+  min-width: max-content; /* Prevent wrapping on narrow screens */
 }
 
-.skin-item span {
-  max-width: 100%; /* Biarkan teks menggunakan seluruh lebar */
-  white-space: normal; /* Bungkus teks jika terlalu panjang */
-  overflow: visible; /* Pastikan teks tidak dipotong */
+.skin-item span, .model-item span {
+  flex: 1;
+  padding-right: 1rem;
+  white-space: nowrap; /* Keep text in single line */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Add ellipsis for long text */
 }
 
-.skin-item .actions {
+.skin-item .actions, .model-item .actions {
   display: flex;
-  gap: 8px; /* Jarak antar tombol */
+  gap: 8px;
+  flex-shrink: 0; /* Prevent buttons from shrinking */
 }
 
-.skin-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+/* Add custom scrollbar for better visibility */
+#skinList::-webkit-scrollbar,
+#modelList::-webkit-scrollbar {
+  display: block;
+  height: 8px;
 }
 
-.skin-item:has(input[type="checkbox"]:checked) {
+#skinList::-webkit-scrollbar-track,
+#modelList::-webkit-scrollbar-track {
+  background: var(--background);
+  border-radius: 4px;
+}
+
+#skinList::-webkit-scrollbar-thumb,
+#modelList::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 4px;
+}
+
+#skinList::-webkit-scrollbar-thumb:hover,
+#modelList::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-hover);
+}
+
+.skin-item:has(input[type="checkbox"]:checked), .model-item:has(input[type="checkbox"]:checked) {
   outline: 2px solid #28a745;
   animation: highlight 0.4s ease-in-out;
-  outline-offset: -2px;   /* tarik outline 2px ke dalam */
+  outline-offset: -2px;
 }
 
 .skin-item.valid-geometry {
@@ -159,86 +230,41 @@ p {
   outline: 2px solid #ff5252;
 }
 
-/* Model List Styles */
-#modelList {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  word-wrap: break-word; /* Memastikan teks panjang terputus */
-  overflow: auto; /* Tambahkan scrollbar jika diperlukan */
-}
-
-.model-item {
-  display: flex;
-  flex-direction: column; /* Ubah arah menjadi kolom */
-  align-items: flex-start; /* Teks dan tombol rata kiri */
-  gap: 8px; /* Jarak antara teks dan tombol */
-  padding: 14px 18px;
-  background: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.model-item span {
-  max-width: 100%; /* Biarkan teks menggunakan seluruh lebar */
-  white-space: normal; /* Bungkus teks jika terlalu panjang */
-  overflow: visible; /* Pastikan teks tidak dipotong */
-}
-
-.model-item .actions {
-  display: flex;
-  gap: 8px; /* Jarak antar tombol */
-}
-
-.model-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-}
-
-.model-item:has(input[type="checkbox"]:checked) {
-  outline: 2px solid #28a745;
-  animation: highlight 0.4s ease-in-out;
-  outline-offset: -2px;
-}
-
 /* Model Selector Styles */
 #modelSelector {
   width: 100%;
   padding: 12px;
   font-size: 14px;
-  color: #333;
-  background-color: #fff;
-  border: 2px solid #ddd;
-  border-radius: 8px;
+  color: var(--text-primary);
+  background-color: var(--card-bg);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
   cursor: pointer;
   transition: all 0.3s ease;
   outline: none;
-  font-family: 'Inter', sans-serif;
 }
 
 #modelSelector:hover {
-  border-color: #0078d4;
+  border-color: var(--primary-color);
 }
 
 #modelSelector:focus {
-  border-color: #0078d4;
-  box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.2);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
 }
 
 #modelSelector option {
   padding: 12px;
-  background-color: #fff;
-  color: #333;
+  background-color: var(--card-bg);
+  color: var(--text-primary);
 }
 
 #modelSelector option:hover {
   background-color: #f0f0f0;
 }
 
-/* Gaya khusus untuk option pertama (placeholder) */
 #modelSelector option:first-child {
-  color: #666;
+  color: var(--text-secondary);
   font-style: italic;
 }
 
@@ -249,173 +275,373 @@ p {
   100% { box-shadow: 0 0 0 rgba(40, 167, 69, 0); }
 }
 
-button {
-  flex-shrink: 0; /* Tombol tidak mengecil */
-  padding: 10px 16px;
-  background-color: #28a745;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  margin: 4px;
-  cursor: pointer;
-  font-size: 15px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-button:hover {
-  background-color: #218838;
-  transform: translateY(-2px);
-}
-
-.merge-wrapper {
-  display: none;
-  flex-direction: column;
-  gap: 12px;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-#mergeSkinSelectedBtn,
-#mergeSkinAllBtn,
-#mergeGeometrySelectedBtn,
-#mergeGeometryFilesBtn {
-  padding: 10px 16px;
-  background-color: #28a745;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-#mergeSkinSelectedBtn:hover,
-#mergeSkinAllBtn:hover,
-#mergeGeometrySelectedBtn:hover,
-#mergeGeometryFilesBtn:hover {
-  background-color: #218838;
-}
-
-.file-section {
-  margin-bottom: 24px;
-}
-
-.file-section h2 {
-  font-size: 16px;
-  color: #333;
-  margin-bottom: 8px;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 4px;
-}
-
-.validation-section {
-  text-align: center;
-  margin-top: 20px;
-}
-
-#validateBtn {
-  background-color: #ff9800;
-  margin-top: 10px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#validateBtn:hover {
-  background-color: #f57c00;
-}
-
-#validationResult::hidden {
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: 8px;
-  font-size: 14px;
-}
-
-.validation-error {
-  background-color: #ffebee;
-  color: #ff5252;
-  border: 2px solid #ff5252;
-}
-
-.validation-success {
-  background-color: #e8f5e9;
-  color: #4caf50;
-  border: 2px solid #4caf50;
-}
-
-.warning-icon {
-  color: #ff5252;
-  margin-right: 8px;
-}
-
-.validation-list {
-  margin-top: 10px;
-  padding-left: 20px;
-}
-
-.validation-item {
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-}
-
-/* Burger Menu */
+/* Navigation Styles */
 .burger-menu {
   position: fixed;
-  top: 20px;
-  left: 20px;
+  top: 1.5rem;
+  left: 1.5rem;
   z-index: 1000;
 }
 
 .burger-icon {
-  font-size: 24px;
-  background: #0078d4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  font-size: 1.5rem;
+  background: var(--primary-color);
+  border-radius: var(--radius-md);
   color: white;
   border: none;
-  border-radius: 4px;
-  padding: 6px 12px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .burger-icon:hover {
-  background: #005a9e;
+  background: var(--primary-hover);
+  transform: scale(1.05);
 }
 
 .side-nav {
   position: fixed;
   top: 0;
   left: 0;
-  width: 250px;
-  height: 100%;
-  background: #333;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 20px;
+  width: 280px;
+  height: 100vh;
+  background: var(--text-primary);
+  padding: 4rem 0 0 0;
   transform: translateX(-100%);
   transition: transform 0.3s ease;
-  z-index: 1000; /* Pastikan navigasi berada di atas elemen lainnya */
-}
-
-.side-nav a {
-  color: white;
-  text-decoration: none;
-  font-size: 18px;
-  padding: 10px 0;
-  border-bottom: 1px solid #555;
-}
-
-.side-nav a:hover {
-  color: #0078d4;
-}
-
-.side-nav.hidden {
-  transform: translateX(-100%);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.2);
 }
 
 .side-nav.visible {
   transform: translateX(0);
+}
+
+.side-nav a.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+  text-decoration: none;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  transition: all 0.3s ease;
+}
+
+.side-nav a.nav-link:hover {
+  background: rgba(255,255,255,0.1);
+  padding-left: 2.5rem;
+  color: var(--primary-color);
+}
+
+.side-nav a.nav-link .material-icons {
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
+}
+
+.nav-footer {
+  margin-top: auto;
+  padding: 1.5rem;
+  text-align: center;
+  background: rgba(0,0,0,0.2);
+}
+
+.nav-footer p {
+  margin: 0.5rem 0;
+  color: rgba(255,255,255,0.6);
+  font-size: 0.9rem;
+}
+
+.nav-footer p:first-child {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Footer Navigasi */
+.nav-footer {
+  margin-top: auto;
+  text-align: center;
+  font-size: 14px;
+  color: #aaa;
+  padding: 10px 0;
+  border-top: 1px solid #555;
+}
+
+/* Formulir Skin Editor */
+#skinForm {
+  margin-top: 20px;
+  padding: 20px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+#skinForm.hidden {
+  display: none;
+}
+
+#skinEditorForm label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+#skinEditorForm input,
+#skinEditorForm select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#skinEditorForm button {
+  padding: 10px 15px;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 2px;
+}
+
+#skinEditorForm button:hover {
+  background: var(--primary-hover);
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: var(--radius-md);
+  width: 400px;
+  max-height: 90%;
+  overflow-y: auto;
+  box-shadow: var(--shadow-md);
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: var(--text-primary);
+}
+
+.modal-content form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.modal-content form input,
+.modal-content form select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+}
+
+.modal-content form button {
+  padding: 10px 15px;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.modal-content form button:hover {
+  background: var(--primary-hover);
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+/* Gaya untuk tombol properti opsional dalam tata letak vertikal */
+#optionalProperties {
+  background: var(--background);
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  margin-top: 1.5rem;
+  border: 1px solid var(--border-color);
+}
+
+#optionalProperties h3 {
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#optionalProperties h3 .material-icons {
+  font-size: 1.25rem;
+  color: var(--primary-color);
+}
+
+.optional-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.optional-buttons button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.optional-buttons button:hover {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+.optional-buttons button .material-icons {
+  font-size: 1.25rem;
+}
+
+#optionalFields {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.optional-field {
+  background: var(--card-bg);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.optional-field-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.optional-field-title {
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.optional-field .material-icons {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+}
+
+.remove-field-btn {
+  padding: 0.5rem;
+  background: transparent;
+  color: #ef4444;
+  border: 1px solid #ef4444;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+}
+
+.remove-field-btn:hover {
+  background: #ef4444;
+  color: white;
+  transform: translateY(-1px);
+}
+
+.optional-field input,
+.optional-field select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--background);
+  color: var(--text-primary);
+  margin-top: 0.5rem;
+}
+
+.optional-field input:focus,
+.optional-field select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+  outline: none;
+}
+
+/* Keep existing Blockbench styles */
+#blockbenchContainer {
+  width: 100%;
+  height: 80vh;
+  margin-top: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#blockbenchFrame {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .tabs {
+    flex-direction: column;
+  }
+  
+  .tab-btn {
+    width: 100%;
+  }
 }
 
 @media (max-width: 600px) {
@@ -498,177 +724,261 @@ button:hover {
   }
 }
 
-/* Footer Navigasi */
-.nav-footer {
-  margin-top: auto; /* Dorong footer ke bagian bawah */
-  text-align: center;
-  font-size: 14px;
-  color: #aaa;
-  padding: 10px 0;
-  border-top: 1px solid #555;
+/* Skins Editor Specific Styles */
+.editor-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-.nav-footer p {
-  margin: 5px 0;
+#fileContent {
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
 }
 
-.nav-footer p:first-child {
-  font-weight: bold;
-  color: #fff;
+#skinList {
+  display: grid;
+  gap: 1rem;
+  margin: 1.5rem 0;
 }
 
-/* Formulir Skin Editor */
-#skinForm {
-  margin-top: 20px;
-  padding: 20px;
-  background: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+.skin-item {
+  background: var(--background);
+  padding: 1.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
 }
 
-#skinForm.hidden {
-  display: none;
+.skin-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.skin-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.skin-name {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.skin-type {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  padding: 0.25rem 0.75rem;
+  background: var(--background);
+  border-radius: 1rem;
+  display: inline-block;
+}
+
+.skin-type.paid {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.skin-type.free {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.skin-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.skin-actions button {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+/* Modal Styles Improvement */
+.modal-content {
+  max-width: 500px;
+  width: 90%;
+  padding: 2rem;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+}
+
+#skinEditorForm {
+  display: grid;
+  gap: 1.5rem;
+}
+
+#skinEditorForm .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 #skinEditorForm label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
+  font-weight: 500;
+  color: var(--text-primary);
 }
 
 #skinEditorForm input,
-#skinEditorForm select {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+#skinEditorForm select,
+#skinEditorForm textarea {
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--background);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
 }
 
-#skinEditorForm button {
-  padding: 10px 15px;
-  background: #0078d4;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin: 2px;
+#skinEditorForm input:focus,
+#skinEditorForm select:focus,
+#skinEditorForm textarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+  outline: none;
 }
 
-#skinEditorForm button:hover {
-  background: #005a9e;
-}
-
-/* Modal */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Overlay gelap */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  overflow: hidden; /* Mencegah modal meluap */
-}
-
-.modal.hidden {
-  display: none;
-}
-
-.modal-content {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  width: 400px;
-  max-height: 90%; /* Batasi tinggi modal */
-  overflow-y: auto; /* Tambahkan scroll jika konten terlalu panjang */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-::-webkit-scrollbar {
-  display: none;
-}
-
-.modal-content h2 {
-  margin-bottom: 20px;
-  font-size: 20px;
-  color: #333;
-}
-
-.modal-content form label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-.modal-content form input,
-.modal-content form select {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.modal-content form button {
-  padding: 10px 15px;
-  background: #0078d4;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.modal-content form button:hover {
-  background: #005a9e;
-}
-
-body.modal-open {
-  overflow: hidden; /* Kunci scroll pada halaman utama */
-}
-
-/* Gaya untuk tombol properti opsional dalam tata letak vertikal */
+/* Optional Properties Section */
 #optionalProperties {
+  background: var(--background);
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  margin-top: 1.5rem;
+  border: 1px solid var(--border-color);
+}
+
+#optionalProperties h3 {
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  font-weight: 600;
   display: flex;
-  flex-direction: column; /* Atur tombol secara vertikal */
-  gap: 10px; /* Jarak antar tombol */
-  margin-top: 15px;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-#optionalProperties button {
-  padding: 8px 12px; /* Ukuran tombol lebih kecil */
-  font-size: 14px; /* Ukuran font lebih kecil */
-  background-color: #0078d4;
+#optionalProperties h3 .material-icons {
+  font-size: 1.25rem;
+  color: var(--primary-color);
+}
+
+.optional-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.optional-buttons button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.optional-buttons button:hover {
+  background: var(--primary-color);
   color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-#optionalProperties button:hover {
-  background-color: #005a9e;
+  border-color: var(--primary-color);
   transform: translateY(-2px);
 }
 
-#optionalProperties button:active {
-  transform: translateY(0);
+.optional-buttons button .material-icons {
+  font-size: 1.25rem;
 }
 
-#blockbenchContainer {
-  width: 100%;
-  height: 80vh;
-  margin-top: 20px;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+#optionalFields {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
 }
 
-#blockbenchFrame {
+.optional-field {
+  background: var(--card-bg);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.optional-field-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.optional-field-title {
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.optional-field .material-icons {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+}
+
+.remove-field-btn {
+  padding: 0.5rem;
+  background: transparent;
+  color: #ef4444;
+  border: 1px solid #ef4444;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+}
+
+.remove-field-btn:hover {
+  background: #ef4444;
+  color: white;
+  transform: translateY(-1px);
+}
+
+.optional-field input,
+.optional-field select {
   width: 100%;
-  height: 100%;
-  border: none;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--background);
+  color: var(--text-primary);
+  margin-top: 0.5rem;
+}
+
+.optional-field input:focus,
+.optional-field select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+  outline: none;
 }

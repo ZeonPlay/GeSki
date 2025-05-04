@@ -204,40 +204,50 @@ function openSkinForm(index = null) {
 
   if (index !== null) {
     const skin = skinsData.skins[index];
-    formTitle.textContent = 'Edit Skin';
+    formTitle.textContent = translations[getSystemLanguage()].editSkin;
     skinEditorForm.localizationName.value = skin.localization_name || '';
     skinEditorForm.geometry.value = skin.geometry || '';
     skinEditorForm.texture.value = skin.texture || '';
     skinEditorForm.type.value = skin.type || 'free';
-    skinEditorForm.hideArmor.value = skin.hide_armor ? 'true' : 'false'; // Set nilai hide_armor
-    skinEditorForm.enableAttachables.value = skin.enable_attachables !== undefined ? (skin.enable_attachables ? 'true' : 'false') : 'none'; // Set nilai enable_attachables atau none
+    skinEditorForm.hideArmor.value = skin.hide_armor ? 'true' : 'false';
+    skinEditorForm.enableAttachables.value = skin.enable_attachables !== undefined ? 
+      (skin.enable_attachables ? 'true' : 'false') : 'none';
 
-    // Tambahkan properti opsional jika ada
-    if (skin.animations) {
+    // Tambahkan validasi untuk setiap properti opsional
+    if (skin.animations && Array.isArray(skin.animations)) {
       addAnimationsBtn.click();
       document.getElementById('animations').value = skin.animations.join(', ');
+    } else if (skin.animations && typeof skin.animations === 'string') {
+      addAnimationsBtn.click();
+      document.getElementById('animations').value = skin.animations;
     }
-    if (skin.attachments) {
+
+    if (skin.attachments && Array.isArray(skin.attachments)) {
       addAttachmentsBtn.click();
       document.getElementById('attachments').value = skin.attachments.join(', ');
+    } else if (skin.attachments && typeof skin.attachments === 'string') {
+      addAttachmentsBtn.click();
+      document.getElementById('attachments').value = skin.attachments;
     }
+
     if (skin.overlay) {
       addOverlayBtn.click();
       document.getElementById('overlay').value = skin.overlay;
     }
+
     if (skin.color) {
       addColorBtn.click();
       document.getElementById('color').value = skin.color;
     }
   } else {
-    formTitle.textContent = 'Tambah Skin Baru';
+    formTitle.textContent = translations[getSystemLanguage()].newSkin;
     skinEditorForm.reset();
-    skinEditorForm.hideArmor.value = 'false'; // Set nilai default untuk hide_armor
-    skinEditorForm.enableAttachables.value = 'none'; // Set nilai default untuk enable_attachables
+    skinEditorForm.hideArmor.value = 'false';
+    skinEditorForm.enableAttachables.value = 'none';
   }
 
-  document.body.classList.add('modal-open'); // Kunci scroll halaman utama
-  skinModal.classList.remove('hidden'); // Tampilkan modal
+  document.body.classList.add('modal-open');
+  skinModal.classList.remove('hidden');
 }
 
 // Fungsi untuk menyimpan skin
@@ -248,24 +258,42 @@ skinEditorForm.addEventListener('submit', (e) => {
     geometry: skinEditorForm.geometry.value,
     texture: skinEditorForm.texture.value,
     type: skinEditorForm.type.value,
-    hide_armor: skinEditorForm.hideArmor.value === 'true', // Konversi ke boolean
+    hide_armor: skinEditorForm.hideArmor.value === 'true',
   };
 
-  // Tambahkan enable_attachables hanya jika ada nilai yang dipilih
   if (skinEditorForm.enableAttachables.value !== 'none') {
-    newSkin.enable_attachables = skinEditorForm.enableAttachables.value === 'true'; // Konversi ke boolean
+    newSkin.enable_attachables = skinEditorForm.enableAttachables.value === 'true';
   }
 
-  // Tambahkan properti opsional lainnya jika ada
+  // Proses properti opsional dengan validasi
   if (document.getElementById('animations')) {
-    newSkin.animations = document.getElementById('animations').value.split(',').map(item => item.trim());
+    const animationsValue = document.getElementById('animations').value.trim();
+    if (animationsValue) {
+      try {
+        // Coba parse sebagai JSON jika string valid JSON
+        newSkin.animations = JSON.parse(animationsValue);
+      } catch {
+        // Jika bukan JSON valid, split dengan koma
+        newSkin.animations = animationsValue.split(',').map(item => item.trim());
+      }
+    }
   }
+
   if (document.getElementById('attachments')) {
-    newSkin.attachments = document.getElementById('attachments').value.split(',').map(item => item.trim());
+    const attachmentsValue = document.getElementById('attachments').value.trim();
+    if (attachmentsValue) {
+      try {
+        newSkin.attachments = JSON.parse(attachmentsValue);
+      } catch {
+        newSkin.attachments = attachmentsValue.split(',').map(item => item.trim());
+      }
+    }
   }
+
   if (document.getElementById('overlay')) {
-    newSkin.overlay = document.getElementById('overlay').value;
+    newSkin.overlay = document.getElementById('overlay').value.trim();
   }
+
   if (document.getElementById('color')) {
     newSkin.color = document.getElementById('color').value;
   }
@@ -277,8 +305,8 @@ skinEditorForm.addEventListener('submit', (e) => {
   }
 
   displaySkins(skinsData.skins);
-  skinModal.classList.add('hidden'); // Sembunyikan modal setelah menyimpan
-  document.body.classList.remove('modal-open'); // Buka scroll halaman utama
+  skinModal.classList.add('hidden');
+  document.body.classList.remove('modal-open');
 });
 
 // Fungsi untuk membatalkan pengeditan
