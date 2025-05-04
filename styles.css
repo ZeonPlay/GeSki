@@ -178,18 +178,40 @@ button:hover {
   min-width: max-content; /* Prevent wrapping on narrow screens */
 }
 
-.skin-item span, .model-item span {
-  flex: 1;
-  padding-right: 1rem;
-  white-space: nowrap; /* Keep text in single line */
-  overflow: hidden;
-  text-overflow: ellipsis; /* Add ellipsis for long text */
+/* Add hover effect for both skin and model items */
+.skin-item:hover, .model-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-color);
 }
 
+/* Actions buttons styling */
 .skin-item .actions, .model-item .actions {
   display: flex;
   gap: 8px;
   flex-shrink: 0; /* Prevent buttons from shrinking */
+}
+
+.skin-item .actions button, .model-item .actions button {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.skin-item .actions button:hover, .model-item .actions button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Checked state styling */
+.skin-item:has(input[type="checkbox"]:checked), 
+.model-item:has(input[type="checkbox"]:checked) {
+  outline: 2px solid var(--primary-color);
+  animation: highlight 0.4s ease-in-out;
+  outline-offset: -2px;
 }
 
 /* Add custom scrollbar for better visibility */
@@ -214,12 +236,6 @@ button:hover {
 #skinList::-webkit-scrollbar-thumb:hover,
 #modelList::-webkit-scrollbar-thumb:hover {
   background: var(--primary-hover);
-}
-
-.skin-item:has(input[type="checkbox"]:checked), .model-item:has(input[type="checkbox"]:checked) {
-  outline: 2px solid #28a745;
-  animation: highlight 0.4s ease-in-out;
-  outline-offset: -2px;
 }
 
 .skin-item.valid-geometry {
