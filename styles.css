@@ -998,3 +998,127 @@ body.modal-open {
   box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
   outline: none;
 }
+
+/* New styles for root properties */
+.root-properties {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--primary-color);
+  box-shadow: var(--shadow-md);
+}
+
+.root-property-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.root-property-item:last-child {
+  margin-bottom: 0;
+}
+
+.root-property-item label {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+}
+
+.root-property-item input {
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.root-property-item input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+  outline: none;
+}
+
+/* Highlight effect untuk root properties */
+.root-properties {
+  position: relative;
+  overflow: hidden;
+}
+
+.root-properties::before {
+  content: "Root Properties";
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: var(--primary-color);
+  color: white;
+  padding: 0.25rem 1rem;
+  font-size: 0.875rem;
+  border-bottom-left-radius: var(--radius-md);
+}
+
+/* ...existing styles... */
+
+/* Texts Editor specific styles */
+.translation-item {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem;
+    background: var(--card-bg);
+    border-radius: var(--radius-md);
+    margin-bottom: 0.5rem;
+}
+
+.translation-key {
+    flex: 1;
+    font-family: monospace;
+    color: var(--text-secondary);
+}
+
+.translation-value {
+    flex: 2;
+}
+
+.translation-comment {
+    color: var(--text-muted);
+    font-style: italic;
+    margin-left: 1rem;
+}
+
+.translation-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+#langControls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.search-box {
+    flex: 1;
+    min-width: 200px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+}
+
+/* Comment styles */
+.comment-item {
+    padding: 0.5rem 1rem;
+    color: var(--text-muted);
+    font-style: italic;
+    background: var(--card-bg);
+    border-left: 3px solid var(--primary-color);
+    margin-bottom: 0.5rem;
+}

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Texts Editor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/svg+xml" href="assets/image/brace.svg">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+  <div class="burger-menu">
+    <button id="burgerIcon" class="burger-icon">
+      <span class="material-icons">menu</span>
+    </button>
+    <div id="sideNav" class="side-nav hidden">
+      <a href="index.html" class="nav-link">
+        <span class="material-icons">home</span>
+        Home
+      </a>
+      <a href="skins_editor.html" class="nav-link">
+        <span class="material-icons">face</span>
+        Skins Editor
+      </a>
+      <a href="texts_editor.html" class="nav-link active">
+        <span class="material-icons">translate</span>
+        Texts Editor
+      </a>
+      <a href="geometry_viewer.html" class="nav-link">
+        <span class="material-icons">view_in_ar</span>
+        Blockbench
+      </a>
+      
+      <div class="nav-footer">
+        <p>&copy; GeSki</p>
+        <p>Version 1.0.0</p>
+      </div>
+    </div>
+  </div>
+
+    <div class="container">
+        <h1>Texts Editor</h1>
+        <p>Unggah file <code>.lang</code> Anda untuk mulai mengedit</p>
+        
+        <input type="file" id="importLang" accept=".lang" style="display: none;">
+        <button id="loadLangBtn">Muat File</button>
+
+        <div id="fileContent" class="hidden">
+            <div id="langControls">
+                <button id="addTranslationBtn">Tambah Terjemahan</button>
+                <button id="saveLangBtn">Simpan File</button>
+                <div class="search-box">
+                    <input type="text" id="searchTranslations" placeholder="Cari terjemahan...">
+                </div>
+            </div>
+
+            <div id="translationsList"></div>
+        </div>
+    </div>
+
+    <!-- Modal untuk menambah/edit terjemahan -->
+    <div id="translationModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="translationFormTitle">Tambah/Edit Terjemahan</h2>
+                <button type="button" class="close-btn" id="closeTranslationModal">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            
+            <form id="translationForm">
+                <div class="form-group">
+                    <label for="translationKey">Translation Key:</label>
+                    <input type="text" id="translationKey" required>
+                </div>
+                <div class="form-group">
+                    <label for="translationValue">Translation Value:</label>
+                    <input type="text" id="translationValue" required>
+                </div>
+                <div class="form-group">
+                    <label for="translationComment">Comment (optional):</label>
+                    <input type="text" id="translationComment" placeholder="## Your comment here">
+                </div>
+                <div class="form-actions">
+                    <button type="submit">Save Translation</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <audio id="clickSound" src="assets/audio/click.ogg" preload="auto"></audio>
+    <script src="scripts/texts_editor.js"></script>
+</body>
+</html>

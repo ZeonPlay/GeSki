@@ -164,6 +164,9 @@ importJson.addEventListener('change', () => {
     try {
       // Gunakan JSON5 untuk parsing file
       skinsData = JSON5.parse(e.target.result);
+      // Tampilkan root properties
+      displayRootProperties(skinsData);
+      // Tampilkan daftar skin
       displaySkins(skinsData.skins);
       fileContent.classList.remove('hidden');
     } catch (err) {
@@ -449,3 +452,35 @@ document.addEventListener("DOMContentLoaded", () => {
   const lang = getSystemLanguage();
   applyTranslation(lang);
 });
+
+// Tambahkan fungsi untuk menampilkan root properties
+function displayRootProperties(data) {
+  const rootPropertiesDiv = document.createElement('div');
+  rootPropertiesDiv.id = 'rootProperties';
+  rootPropertiesDiv.className = 'root-properties';
+  
+  rootPropertiesDiv.innerHTML = `
+    <div class="root-property-item">
+      <label for="serializeName">Serialize Name:</label>
+      <input type="text" id="serializeName" value="${data.serialize_name || ''}" 
+        onchange="updateRootProperty('serialize_name', this.value)">
+    </div>
+    <div class="root-property-item">
+      <label for="localizationName">Root Localization Name:</label>
+      <input type="text" id="rootLocalizationName" value="${data.localization_name || ''}"
+        onchange="updateRootProperty('localization_name', this.value)">
+    </div>
+  `;
+
+  // Sisipkan sebelum daftar skin
+  const fileContent = document.getElementById('fileContent');
+  const skinList = document.getElementById('skinList');
+  fileContent.insertBefore(rootPropertiesDiv, skinList);
+}
+
+// Fungsi untuk mengupdate root property
+function updateRootProperty(propertyName, value) {
+  if (skinsData) {
+    skinsData[propertyName] = value;
+  }
+}
