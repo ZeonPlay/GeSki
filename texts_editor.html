@@ -43,8 +43,31 @@
         <h1>Texts Editor</h1>
         <p>Unggah file <code>.lang</code> Anda untuk mulai mengedit</p>
         
-        <input type="file" id="importLang" accept=".lang" style="display: none;">
-        <button id="loadLangBtn">Muat File</button>
+        <div class="initial-buttons">
+            <input type="file" id="importLang" accept=".lang" style="display: none;">
+            <button id="loadLangBtn">
+                <span class="material-icons">upload_file</span>
+                Muat File Lang
+            </button>
+            <button id="generateFromSkinsBtn">
+                <span class="material-icons">auto_awesome</span>
+                Generate Lang (skins.json)
+            </button>
+        </div>
+
+        <!-- Tambahkan panduan -->
+        <div class="lang-guide hidden">
+            <h3>Format Lang File</h3>
+            <ul>
+                <li>Nama pack: <code>skinpack.PackName=Display Name</code></li>
+                <li>Nama skin: <code>skin.PackName.SkinId=Display Name</code></li>
+                <li>Komentar: <code>key=value ### comment</code></li>
+            </ul>
+            <div class="alert">
+                <span class="material-icons">info</span>
+                <p>File lang harus sesuai dengan nama di skins.json</p>
+            </div>
+        </div>
 
         <div id="fileContent" class="hidden">
             <div id="langControls">
