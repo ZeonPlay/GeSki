@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const burgerIcon = document.getElementById('burgerIcon');
     const sideNav = document.getElementById('sideNav');
     const clickSound = document.getElementById('clickSound');
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    const scrollBottomBtn = document.getElementById('scrollBottomBtn');
 
     if (burgerIcon && sideNav) {
         // Ensure initial state
@@ -49,75 +51,59 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', playClickSound);
     });
 
-    // Easter Egg Implementation
-    let typing = '';
-    let cloudClicks = 0;
-    let cloudClickTimer;
-    const isMobile = /Android/i.test(navigator.userAgent);
+    // Scroll behavior
+    function handleScroll() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
 
-    // Desktop Easter Egg
-    document.addEventListener('keypress', (e) => {
-        if (!isMobile) {
-            typing += e.key.toLowerCase();
-            if (typing.length > 5) typing = typing.slice(-5);
-            if (typing === 'tabob') {
-                createSnowfall();
-                typing = '';
-            }
+        // Check if we're on the homepage (look for home-container)
+        const isHomePage = document.querySelector('.home-container') !== null;
+        
+        if (!isHomePage) {
+            scrollTopBtn.classList.add('hidden');
+            scrollBottomBtn.classList.add('hidden');
+            return;
         }
-    });
+        
+        // Show top button after scrolling down 100px
+        if (scrollTop > 100) {
+            scrollTopBtn.classList.remove('hidden');
+        } else {
+            scrollTopBtn.classList.add('hidden');
+        }
+        
+        // Show bottom button if not near the bottom
+        if (scrollTop + windowHeight < documentHeight - 100) {
+            scrollBottomBtn.classList.remove('hidden');
+        } else {
+            scrollBottomBtn.classList.add('hidden');
+        }
+    }
 
-    // Mobile Easter Egg
-    const heroLogo = document.querySelector('.hero-logo');
-    if (heroLogo && isMobile) {
-        heroLogo.addEventListener('click', () => {
-            cloudClicks++;
-            clearTimeout(cloudClickTimer);
-            
-            cloudClickTimer = setTimeout(() => {
-                cloudClicks = 0;
-            }, 1000);
-
-            if (cloudClicks === 5) {
-                createRainfall();
-                cloudClicks = 0;
-            }
+    // Smooth scroll functions
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
         });
+        playClickSound();
     }
 
-    function createSnowfall() {
-        const snowflakes = ['❄', '❅', '❆'];
-        for (let i = 0; i < 50; i++) {
-            const snowflake = document.createElement('div');
-            snowflake.className = 'snowflake';
-            snowflake.innerHTML = snowflakes[Math.floor(Math.random() * snowflakes.length)];
-            snowflake.style.left = Math.random() * 100 + 'vw';
-            snowflake.style.animationDuration = (Math.random() * 3 + 2) + 's';
-            snowflake.style.animationName = 'fall';
-            snowflake.style.animationDelay = Math.random() * 2 + 's';
-            document.body.appendChild(snowflake);
-
-            // Remove snowflake after animation
-            setTimeout(() => {
-                snowflake.remove();
-            }, 5000);
-        }
+    function scrollToBottom() {
+        window.scrollTo({
+            top: document.documentElement.scrollHeight,
+            behavior: 'smooth'
+        });
+        playClickSound();
     }
 
-    function createRainfall() {
-        for (let i = 0; i < 100; i++) {
-            const raindrop = document.createElement('div');
-            raindrop.className = 'raindrop';
-            raindrop.style.left = Math.random() * 100 + 'vw';
-            raindrop.style.animationDuration = '1s';
-            raindrop.style.animationName = 'fall';
-            raindrop.style.animationDelay = Math.random() + 's';
-            document.body.appendChild(raindrop);
+    // Event listeners
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    scrollTopBtn.addEventListener('click', scrollToTop);
+    scrollBottomBtn.addEventListener('click', scrollToBottom);
 
-            // Remove raindrop after animation
-            setTimeout(() => {
-                raindrop.remove();
-            }, 2000);
-        }
-    }
+    // Initial check
+    handleScroll();
+
 });

@@ -415,34 +415,43 @@ body {
     font-size: 1.25rem;
 }
 
-/* Easter Egg Effects */
-.snowflake, .raindrop {
+/* Scroll Buttons */
+.scroll-buttons {
     position: fixed;
-    color: #fff;
-    pointer-events: none;
-    z-index: 9999;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
+    right: 20px;
+    bottom: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.snowflake {
-    font-size: 20px;
+.scroll-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #2c2c2c;
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
     opacity: 0.8;
 }
 
-.raindrop {
-    width: 2px;
-    height: 20px;
-    background: linear-gradient(transparent, rgba(255, 255, 255, 0.75));
+.scroll-btn:hover {
+    background: #404040;
+    opacity: 1;
 }
 
-@keyframes fall {
-    0% {
-        transform: translateY(-100vh);
-    }
-    100% {
-        transform: translateY(100vh);
-    }
+.scroll-btn.hidden {
+    display: none;
+}
+
+.scroll-btn .material-icons {
+    font-size: 24px;
 }
 
 /* Responsive Design */
