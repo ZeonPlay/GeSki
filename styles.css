@@ -1277,3 +1277,63 @@ body.modal-open {
     border-left: 3px solid var(--primary-color);
     margin-bottom: 0.5rem;
 }
+
+/* Scroll Buttons */
+.scroll-buttons {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 1000;
+}
+
+.scroll-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.scroll-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.scroll-btn.hidden {
+  display: none;
+}
+
+/* Android specific styles */
+@media (max-width: 480px) and (pointer: coarse) {
+  .scroll-buttons {
+    right: 1rem;
+    bottom: 5rem; /* Berikan ruang untuk navigation bar mobile */
+  }
+
+  .scroll-btn {
+    width: 48px;
+    height: 48px;
+  }
+
+  .scroll-btn .material-icons {
+    font-size: 28px;
+  }
+}
+
+/* Desktop specific styles */
+@media (min-width: 1024px) and (pointer: fine) {
+  .scroll-buttons {
+    right: 2rem;
+    bottom: 2rem;
+  }
+}

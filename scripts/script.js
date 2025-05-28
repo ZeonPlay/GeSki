@@ -25,6 +25,8 @@ const validateBtn = document.getElementById('validateBtn');
 const validationResult = document.getElementById('validationResult');
 const tabButtons = document.querySelectorAll('.tab-btn');
 const tabContents = document.querySelectorAll('.tab-content');
+const scrollTopBtn = document.getElementById('scrollTopBtn');
+const scrollBottomBtn = document.getElementById('scrollBottomBtn');
 
 // Combined translations
 const translations = {
@@ -735,3 +737,49 @@ function compareVersion(v1, v2) {
   }
   return 0;
 }
+
+// Scroll behavior
+function handleScroll() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    
+    // Show/hide top button
+    if (scrollTop > windowHeight * 0.3) {
+        scrollTopBtn.classList.remove('hidden');
+    } else {
+        scrollTopBtn.classList.add('hidden');
+    }
+    
+    // Show/hide bottom button
+    if (scrollTop < documentHeight - windowHeight * 1.3) {
+        scrollBottomBtn.classList.remove('hidden');
+    } else {
+        scrollBottomBtn.classList.add('hidden');
+    }
+}
+
+// Smooth scroll functions
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+    playClickSound();
+}
+
+function scrollToBottom() {
+    window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: 'smooth'
+    });
+    playClickSound();
+}
+
+// Event listeners
+window.addEventListener('scroll', handleScroll, { passive: true });
+scrollTopBtn.addEventListener('click', scrollToTop);
+scrollBottomBtn.addEventListener('click', scrollToBottom);
+
+// Initial check
+handleScroll();
