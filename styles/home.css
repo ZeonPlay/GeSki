@@ -415,6 +415,36 @@ body {
     font-size: 1.25rem;
 }
 
+/* Easter Egg Effects */
+.snowflake, .raindrop {
+    position: fixed;
+    color: #fff;
+    pointer-events: none;
+    z-index: 9999;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.snowflake {
+    font-size: 20px;
+    opacity: 0.8;
+}
+
+.raindrop {
+    width: 2px;
+    height: 20px;
+    background: linear-gradient(transparent, rgba(255, 255, 255, 0.75));
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-100vh);
+    }
+    100% {
+        transform: translateY(100vh);
+    }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .documentation {
