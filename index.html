@@ -1,129 +1,386 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GeSki - Minecraft Tools</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="https://unpkg.com/json5/dist/index.min.js"></script>
-  <link rel="icon" type="image/svg+xml" href="assets/image/brace.svg">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeSki</title>
+    <link rel="stylesheet" href="styles/home.css">
+    <link rel="icon" type="image/png" href="assets/image/cloud.png">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-  <div class="burger-menu">
-    <button id="burgerIcon" class="burger-icon">
-      <span class="material-icons">menu</span>
-    </button>
-    <div id="sideNav" class="side-nav hidden">
-      <a href="index.html" class="nav-link">
-        <span class="material-icons">home</span>
-        Home
-      </a>
-      <a href="skins_editor.html" class="nav-link">
-        <span class="material-icons">face</span>
-        Skins Editor
-      </a>
-      <a href="texts_editor.html" class="nav-link active">
-        <span class="material-icons">translate</span>
-        Texts Editor
-      </a>
-      <a href="geometry_viewer.html" class="nav-link">
-        <span class="material-icons">view_in_ar</span>
-        Blockbench
-      </a>
-      
-      <div class="nav-footer">
-        <p>&copy; GeSki</p>
-        <p>Version 1.0.0</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="container">
-    <div class="tabs">
-      <button class="tab-btn active" data-tab="geometry-tab">
-        <span class="material-icons">architecture</span>
-        <span data-translate="geometryTabBtn">Geometry Tools</span>
-      </button>
-      <button class="tab-btn" data-tab="skin-tab">
-        <span class="material-icons">style</span>
-        <span data-translate="skinTabBtn">Skin Tools</span>
-      </button>
+    <div class="burger-menu">
+        <button id="burgerIcon" class="burger-icon">
+            <span class="material-icons">menu</span>
+        </button>
+        <div id="sideNav" class="side-nav">
+            <a href="index.html" class="nav-link active">
+                <span class="material-icons">home</span>
+                Home
+            </a>
+            <a href="splitter.html" class="nav-link">
+                <span class="material-icons">content_cut</span>
+                Splitter
+            </a>
+            <a href="skins_editor.html" class="nav-link">
+                <span class="material-icons">face</span>
+                Skins Editor
+            </a>
+            <a href="texts_editor.html" class="nav-link">
+                <span class="material-icons">translate</span>
+                Texts Editor
+            </a>
+            <a href="geometry_viewer.html" class="nav-link">
+                <span class="material-icons">3d_rotation</span>
+                Blockbench
+            </a>
+            
+            <div class="nav-footer">
+                <p>&copy; GeSki</p>
+                <p>Version 1.0.0</p>
+            </div>
+        </div>
     </div>
 
-    <div id="geometry-tab" class="tab-content active">
-      <h1 data-translate="geometryTitle">Geometry Splitter & Merger</h1>
-      <p data-translate="geometryDescription">Upload one or more Minecraft JSON files to split and merge models</p>
+    <main class="home-container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <img src="assets/image/cloud.png" alt="GeSki Logo" class="hero-logo">
+            <h1>GeSki Tools</h1>
+            <p class="tagline">Kumpulan alat untuk pengembangan Resource Pack Minecraft Bedrock</p>
+            <div class="hero-buttons">
+                <button class="cta-button primary" onclick="window.location.href='#tools'">
+                    <span class="material-icons">play_arrow</span>
+                    Mulai
+                </button>
+                <button class="cta-button secondary" onclick="window.location.href='#about'">
+                    <span class="material-icons">info</span>
+                    Pelajari
+                </button>
+            </div>
+        </section>
 
-      <label for="geometryFileInput" class="custom-file-btn">
-        <span class="material-icons">upload_file</span>
-        <span data-translate="geometryFileBtn">Choose JSON Files</span>
-      </label>
-      <input type="file" id="geometryFileInput" accept=".json" multiple>
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <h2>Tentang GeSki Tools</h2>
+            <p class="description">
+                GeSki Tools adalah suite perangkat web untuk membantu pengembang Resource Pack Minecraft Bedrock Edition.
+                Dengan tools ini, Anda dapat mengelola file JSON, skin, model 3D, dan terjemahan dengan lebih mudah dan efisien.
+            </p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="material-icons">precision_manufacturing</span>
+                    <h3>All-in-One Solution</h3>
+                    <p>Semua tool yang Anda butuhkan dalam satu platform web, tanpa perlu install aplikasi tambahan</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="material-icons">code</span>
+                    <h3>Format Standar</h3>
+                    <p>Mengikuti standar format Minecraft Bedrock untuk memastikan kompatibilitas maksimal</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="material-icons">security</span>
+                    <h3>Validasi Otomatis</h3>
+                    <p>Sistem validasi built-in untuk mencegah error dan memastikan file yang valid</p>
+                </div>
 
-      <div id="modelList"></div>
+                <div class="feature-card">
+                    <span class="material-icons">speed</span>
+                    <h3>Efisiensi Kerja</h3>
+                    <p>Proses split dan merge file yang cepat untuk workflow yang lebih efisien</p>
+                </div>
+            </div>
+        </section>
 
-      <div class="merge-wrapper geometry-merge-wrapper">
-        <button id="mergeGeometrySelectedBtn">
-          <span class="material-icons">merge_type</span>
-          <span data-translate="mergeGeometrySelectedBtn">Merge Selected</span>
-        </button>
-        <button id="mergeGeometryFilesBtn">
-          <span class="material-icons">merge</span>
-          <span data-translate="mergeGeometryFilesBtn">Merge All Files</span>
-        </button>
-      </div>
-    </div>
+        <!-- Tools Overview -->
+        <section id="tools" class="tools-overview">
+            <h2>Tools yang Tersedia</h2>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <span class="material-icons">content_cut</span>
+                    <h3>Splitter</h3>
+                    <p>Split dan merge file skins.json dan geometry.json dengan mudah</p>
+                    <ul class="tool-features">
+                        <li>Split berdasarkan geometry</li>
+                        <li>Merge multiple files</li>
+                        <li>Validasi otomatis</li>
+                        <li>Preview konten file</li>
+                    </ul>
+                    <a href="splitter.html" class="tool-link">Buka Tool</a>
+                </div>
 
-    <div id="skin-tab" class="tab-content">
-      <h1 data-translate="skinTitle">Skin Splitter & Merger</h1>
-      <p data-translate="skinDescription">Upload skins.json untuk split atau merge skin berdasarkan geometry</p>
+                <div class="tool-card">
+                    <span class="material-icons">face</span>
+                    <h3>Skins Editor</h3>
+                    <p>Edit properti skin dengan interface yang user-friendly</p>
+                    <ul class="tool-features">
+                        <li>Edit semua properti skin</li>
+                        <li>Support fitur advanced</li>
+                        <li>Preview perubahan</li>
+                        <li>Validasi input</li>
+                    </ul>
+                    <a href="skins_editor.html" class="tool-link">Buka Tool</a>
+                </div>
 
-      <div class="validation-section">
-        <label for="geometryFile" class="custom-file-btn">
-          <span class="material-icons">upload_file</span>
-          <span data-translate="geometryBtn">Upload Geometry.json</span>
-        </label>
-        <input type="file" id="geometryFile" accept=".json">
-        <button id="validateBtn">
-          <span class="material-icons">check_circle</span>
-          <span data-translate="validateBtn">Validasi Geometry</span>
-        </button>
-      </div>
+                <div class="tool-card">
+                    <span class="material-icons">translate</span>
+                    <h3>Texts Editor</h3>
+                    <p>Kelola file terjemahan dengan mudah</p>
+                    <ul class="tool-features">
+                        <li>Edit file .lang</li>
+                        <li>Generate dari skins.json</li>
+                        <li>Format standar</li>
+                        <li>Fitur pencarian</li>
+                    </ul>
+                    <a href="texts_editor.html" class="tool-link">Buka Tool</a>
+                </div>
 
-      <label for="skinFileInput" class="custom-file-btn">
-        <span class="material-icons">upload_file</span>
-        <span data-translate="skinFileBtn">Choose JSON Files</span>
-      </label>
-      <input type="file" id="skinFileInput" accept=".json" multiple>
+                <div class="tool-card">
+                    <span class="material-icons">3d_rotation</span>
+                    <h3>Blockbench</h3>
+                    <p>Preview dan edit model 3D langsung di browser</p>
+                    <ul class="tool-features">
+                        <li>Preview model 3D</li>
+                        <li>Edit geometry</li>
+                        <li>Atur tekstur</li>
+                        <li>Export hasil</li>
+                    </ul>
+                    <a href="geometry_viewer.html" class="tool-link">Buka Tool</a>
+                </div>
+            </div>
+        </section>
 
-      <div id="skinList"></div>
+        <!-- Existing Documentation Section -->
+        <section class="documentation">
+            <h2>Dokumentasi Detail</h2>
+            
+            <!-- Splitter -->
+            <div class="doc-section">
+                <h3>
+                    <span class="material-icons">content_cut</span>
+                    Splitter
+                </h3>
+                <div class="doc-content">
+                    <p>Tool untuk memisah dan menggabungkan file skins.json dan geometry.json. Berguna untuk manajemen resource pack yang lebih terorganisir.</p>
+                    
+                    <h4>Fitur Utama:</h4>
+                    <ul>
+                        <li>Split file skins.json berdasarkan geometry yang digunakan</li>
+                        <li>Split file geometry.json menjadi file terpisah per model</li>
+                        <li>Merge beberapa file skins.json menjadi satu</li>
+                        <li>Merge beberapa file geometry.json menjadi satu</li>
+                        <li>Validasi geometry untuk memastikan kompatibilitas</li>
+                    </ul>
 
-      <div class="merge-wrapper skin-merge-wrapper">
-        <button id="mergeSkinSelectedBtn">
-          <span class="material-icons">merge_type</span>
-          <span data-translate="mergeSkinSelectedBtn">Merge Selected</span>
-        </button>
-        <button id="mergeSkinAllBtn">
-          <span class="material-icons">merge</span>
-          <span data-translate="mergeSkinAllBtn">Merge All Files</span>
-        </button>
-      </div>
+                    <h4>Cara Penggunaan:</h4>
+                    <ol>
+                        <li>Upload File:
+                            <ul>
+                                <li>Klik "Upload" untuk memilih file skins.json atau geometry.json</li>
+                                <li>Untuk validasi, upload juga file geometry.json terkait</li>
+                            </ul>
+                        </li>
+                        <li>Memisah File (Split):
+                            <ul>
+                                <li>Pilih item yang ingin dipisah dengan mencentang checkbox</li>
+                                <li>Klik "Split Selected" untuk memisah item terpilih</li>
+                                <li>Atau gunakan "Split All" untuk memisah semua item</li>
+                                <li>File hasil split akan didownload otomatis</li>
+                            </ul>
+                        </li>
+                        <li>Menggabung File (Merge):
+                            <ul>
+                                <li>Pilih beberapa file JSON yang akan digabung</li>
+                                <li>Pastikan format file yang dipilih sesuai (skins/geometry)</li>
+                                <li>Klik "Merge Selected" untuk menggabungkan file terpilih</li>
+                                <li>Hasil penggabungan akan didownload sebagai file baru</li>
+                            </ul>
+                        </li>
+                        <li>Validasi Geometry:
+                            <ul>
+                                <li>Upload file geometry.json yang ingin divalidasi</li>
+                                <li>Sistem akan mengecek format dan struktur file</li>
+                                <li>Pesan error akan muncul jika ada masalah</li>
+                            </ul>
+                        </li>
+                    </ol>
 
-      <div id="validationResult"></div>
-    </div>
-  </div>
+                    <div class="tips">
+                        <h4>Tips:</h4>
+                        <ul>
+                            <li>Selalu backup file original sebelum melakukan split atau merge</li>
+                            <li>Pastikan semua file yang akan di-merge memiliki format yang sama</li>
+                            <li>Gunakan fitur validasi untuk mencegah error saat game berjalan</li>
+                            <li>Nama file hasil split akan menggunakan format yang sesuai dengan isi file</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
-  <div class="scroll-buttons">
-    <button id="scrollTopBtn" class="scroll-btn hidden" aria-label="Scroll to top">
-      <span class="material-icons">keyboard_arrow_up</span>
-    </button>
-    <button id="scrollBottomBtn" class="scroll-btn hidden" aria-label="Scroll to bottom">
-      <span class="material-icons">keyboard_arrow_down</span>
-    </button>
-  </div>
+            <!-- Skins Editor -->
+            <div class="doc-section">
+                <h3>
+                    <span class="material-icons">face</span>
+                    Skins Editor
+                </h3>
+                <div class="doc-content">
+                    <p>Tool untuk mengedit properti skin seperti geometry, texture, animations, dan properti lainnya. Mendukung semua fitur skin Minecraft Bedrock.</p>
+                    
+                    <h4>Fitur Utama:</h4>
+                    <ul>
+                        <li>Edit semua properti skin (basic dan advanced)</li>
+                        <li>Support untuk fitur enable_attachables dan hide_armor</li>
+                        <li>Manajemen animasi dan attachment</li>
+                        <li>Preview konfigurasi skin</li>
+                        <li>Validasi input untuk mencegah error</li>
+                    </ul>
 
-  <audio id="clickSound" src="assets/audio/click.ogg" preload="auto"></audio>
-  <script src="scripts/script.js"></script>
+                    <h4>Cara Penggunaan:</h4>
+                    <ol>
+                        <li>Persiapan File:
+                            <ul>
+                                <li>Upload file skins.json yang ingin diedit</li>
+                                <li>Sistem akan menampilkan daftar skin yang ada</li>
+                            </ul>
+                        </li>
+                        <li>Edit Root Properties:
+                            <ul>
+                                <li>Serialize Name: Nama unik untuk pack (tanpa spasi)</li>
+                                <li>Localization Name: Nama yang akan ditampilkan di game</li>
+                            </ul>
+                        </li>
+                        <li>Manajemen Skin:
+                            <ul>
+                                <li>Tambah skin baru dengan klik "Tambah Skin"</li>
+                                <li>Edit skin yang ada dengan klik tombol "Edit"</li>
+                                <li>Hapus skin dengan tombol "Hapus"</li>
+                            </ul>
+                        </li>
+                        <li>Properti Basic:
+                            <ul>
+                                <li>Localization Name: Nama skin di game</li>
+                                <li>Geometry: Nama model yang digunakan</li>
+                                <li>Texture: Path ke file texture (.png)</li>
+                                <li>Type: Tipe skin (free/paid)</li>
+                            </ul>
+                        </li>
+                        <li>Properti Advanced:
+                            <ul>
+                                <li>Hide Armor: Sembunyikan armor default</li>
+                                <li>Enable Attachables: Aktifkan attachment</li>
+                                <li>Animations: Daftar animasi yang digunakan</li>
+                                <li>Attachments: Daftar attachment yang digunakan</li>
+                                <li>Overlay: Path ke texture overlay</li>
+                                <li>Color: Warna untuk tinting skin</li>
+                            </ul>
+                        </li>
+                    </ol>
+
+                    <div class="tips">
+                        <h4>Tips:</h4>
+                        <ul>
+                            <li>Gunakan nama yang konsisten untuk geometry dan texture</li>
+                            <li>Properti advanced bisa ditambahkan sesuai kebutuhan</li>
+                            <li>Preview perubahan sebelum menyimpan</li>
+                            <li>Backup file original sebelum melakukan perubahan besar</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Texts Editor -->
+            <div class="doc-section">
+                <h3>
+                    <span class="material-icons">translate</span>
+                    Texts Editor
+                </h3>
+                <div class="doc-content">
+                    <p>Tool untuk mengelola file terjemahan (.lang) yang digunakan untuk menampilkan nama pack dan skin dalam berbagai bahasa.</p>
+
+                    <h4>Fitur Utama:</h4>
+                    <ul>
+                        <li>Edit dan tambah terjemahan untuk pack dan skin</li>
+                        <li>Generate file .lang dari skins.json</li>
+                        <li>Validasi format terjemahan</li>
+                        <li>Fitur pencarian dan filter</li>
+                    </ul>
+
+                    <h4>Cara Penggunaan:</h4>
+                    <ol>
+                        <li>Memulai:
+                            <ul>
+                                <li>Upload file .lang yang sudah ada, atau</li>
+                                <li>Generate dari skins.json untuk membuat file baru</li>
+                            </ul>
+                        </li>
+                        <li>Format Terjemahan:
+                            <ul>
+                                <li>Pack: <code>skinpack.PackName=Display Name</code></li>
+                                <li>Skin: <code>skin.PackName.SkinId=Display Name</code></li>
+                                <li>Komentar: <code>key=value ### komentar</code></li>
+                            </ul>
+                        </li>
+                        <li>Mengedit Terjemahan:
+                            <ul>
+                                <li>Klik "Edit" pada terjemahan yang ingin diubah</li>
+                                <li>Isi form dengan nilai baru</li>
+                                <li>Tambahkan komentar jika diperlukan</li>
+                                <li>Klik "Simpan" untuk menyimpan perubahan</li>
+                            </ul>
+                        </li>
+                        <li>Menambah Terjemahan:
+                            <ul>
+                                <li>Klik "Tambah Terjemahan"</li>
+                                <li>Isi key dan value sesuai format</li>
+                                <li>Tambahkan komentar (opsional)</li>
+                                <li>Klik "Simpan" untuk menambahkan</li>
+                            </ul>
+                        </li>
+                    </ol>
+
+                    <div class="tips">
+                        <h4>Tips:</h4>
+                        <ul>
+                            <li>Gunakan fitur generate untuk membuat template awal</li>
+                            <li>Pastikan key terjemahan sesuai dengan skins.json</li>
+                            <li>Manfaatkan komentar untuk dokumentasi</li>
+                            <li>Gunakan fitur pencarian untuk edit cepat</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blockbench -->
+            <div class="doc-section">
+                <h3>
+                    <span class="material-icons">3d_rotation</span>
+                    Blockbench
+                </h3>
+                <div class="doc-content">
+                    <p>Integrasi Blockbench web version untuk preview dan edit model 3D</p>
+                    
+                    <h4>Cara Penggunaan:</h4>
+                    <ol>
+                        <li>Buka tab Blockbench</li>
+                        <li>Upload file geometry.json yang ingin di-preview</li>
+                        <li>Gunakan tools Blockbench untuk:
+                            <ul>
+                                <li>Preview model dari berbagai sudut</li>
+                                <li>Edit bone dan cube</li>
+                                <li>Mengatur tekstur</li>
+                                <li>Export dalam format yang diinginkan</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <audio id="clickSound" src="assets/audio/click.ogg" preload="auto"></audio>
+    <script src="scripts/script.js"></script>
 </body>
 </html>

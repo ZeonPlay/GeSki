@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GeSki - Minecraft Tools</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/json5/dist/index.min.js"></script>
+  <link rel="icon" type="image/png" href="assets/image/cloud.png">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+  <div class="burger-menu">
+    <button id="burgerIcon" class="burger-icon">
+      <span class="material-icons">menu</span>
+    </button>
+    <div id="sideNav" class="side-nav hidden">
+      <a href="index.html" class="nav-link">
+        <span class="material-icons">home</span>
+        Home
+      </a>
+      <a href="splitter.html" class="nav-link active">
+        <span class="material-icons">content_cut</span>
+        Splitter
+      </a>
+      <a href="skins_editor.html" class="nav-link">
+        <span class="material-icons">face</span>
+        Skins Editor
+      </a>
+      <a href="texts_editor.html" class="nav-link active">
+        <span class="material-icons">translate</span>
+        Texts Editor
+      </a>
+      <a href="geometry_viewer.html" class="nav-link">
+        <span class="material-icons">view_in_ar</span>
+        Blockbench
+      </a>
+      
+      <div class="nav-footer">
+        <p>&copy; GeSki</p>
+        <p>Version 1.0.0</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="geometry-tab">
+        <span class="material-icons">architecture</span>
+        <span data-translate="geometryTabBtn">Geometry Tools</span>
+      </button>
+      <button class="tab-btn" data-tab="skin-tab">
+        <span class="material-icons">style</span>
+        <span data-translate="skinTabBtn">Skin Tools</span>
+      </button>
+    </div>
+
+    <div id="geometry-tab" class="tab-content active">
+      <h1 data-translate="geometryTitle">Geometry Splitter & Merger</h1>
+      <p data-translate="geometryDescription">Upload one or more Minecraft JSON files to split and merge models</p>
+
+      <label for="geometryFileInput" class="custom-file-btn">
+        <span class="material-icons">upload_file</span>
+        <span data-translate="geometryFileBtn">Choose JSON Files</span>
+      </label>
+      <input type="file" id="geometryFileInput" accept=".json" multiple>
+
+      <div id="modelList"></div>
+
+      <div class="merge-wrapper geometry-merge-wrapper">
+        <button id="mergeGeometrySelectedBtn">
+          <span class="material-icons">merge_type</span>
+          <span data-translate="mergeGeometrySelectedBtn">Merge Selected</span>
+        </button>
+        <button id="mergeGeometryFilesBtn">
+          <span class="material-icons">merge</span>
+          <span data-translate="mergeGeometryFilesBtn">Merge All Files</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="skin-tab" class="tab-content">
+      <h1 data-translate="skinTitle">Skin Splitter & Merger</h1>
+      <p data-translate="skinDescription">Upload skins.json untuk split atau merge skin berdasarkan geometry</p>
+
+      <div class="validation-section">
+        <label for="geometryFile" class="custom-file-btn">
+          <span class="material-icons">upload_file</span>
+          <span data-translate="geometryBtn">Upload Geometry.json</span>
+        </label>
+        <input type="file" id="geometryFile" accept=".json">
+        <button id="validateBtn">
+          <span class="material-icons">check_circle</span>
+          <span data-translate="validateBtn">Validasi Geometry</span>
+        </button>
+      </div>
+
+      <label for="skinFileInput" class="custom-file-btn">
+        <span class="material-icons">upload_file</span>
+        <span data-translate="skinFileBtn">Choose JSON Files</span>
+      </label>
+      <input type="file" id="skinFileInput" accept=".json" multiple>
+
+      <div id="skinList"></div>
+
+      <div class="merge-wrapper skin-merge-wrapper">
+        <button id="mergeSkinSelectedBtn">
+          <span class="material-icons">merge_type</span>
+          <span data-translate="mergeSkinSelectedBtn">Merge Selected</span>
+        </button>
+        <button id="mergeSkinAllBtn">
+          <span class="material-icons">merge</span>
+          <span data-translate="mergeSkinAllBtn">Merge All Files</span>
+        </button>
+      </div>
+
+      <div id="validationResult"></div>
+    </div>
+  </div>
+
+  <div class="scroll-buttons">
+    <button id="scrollTopBtn" class="scroll-btn hidden" aria-label="Scroll to top">
+      <span class="material-icons">keyboard_arrow_up</span>
+    </button>
+    <button id="scrollBottomBtn" class="scroll-btn hidden" aria-label="Scroll to bottom">
+      <span class="material-icons">keyboard_arrow_down</span>
+    </button>
+  </div>
+
+  <audio id="clickSound" src="assets/audio/click.ogg" preload="auto"></audio>
+  <script src="scripts/splitter.js"></script>
+</body>
+</html>
