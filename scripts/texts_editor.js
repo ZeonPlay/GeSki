@@ -10,6 +10,8 @@ const translationForm = document.getElementById('translationForm');
 const closeTranslationModal = document.getElementById('closeTranslationModal');
 const burgerIcon = document.getElementById('burgerIcon');
 const sideNav = document.getElementById('sideNav');
+const clickSound = document.getElementById('clickSound');
+
 
 let langData = [];
 let editingIndex = null;
@@ -252,3 +254,17 @@ document.addEventListener('keydown', (e) => {
         closeSideNav();
     }
 });
+
+// Fungsi untuk memutar suara klik
+function playClickSound() {
+    clickSound.currentTime = 0;
+    clickSound.play();
+}
+
+// Tambahkan event listener ke semua tombol
+document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(button => {
+        button.addEventListener('click', playClickSound, { passive: true });
+    });
+}, { passive: true });
