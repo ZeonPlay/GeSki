@@ -151,14 +151,18 @@ searchTranslations.addEventListener('input', (e) => {
     displayTranslations(e.target.value);
 });
 
+// Update fungsi yang membuka modal
 addTranslationBtn.addEventListener('click', () => {
     editingIndex = null;
     translationForm.reset();
     translationModal.classList.remove('hidden');
+    document.body.classList.add('modal-open'); // Tambahkan class
 });
 
+// Update fungsi yang menutup modal
 closeTranslationModal.addEventListener('click', () => {
     translationModal.classList.add('hidden');
+    document.body.classList.remove('modal-open'); // Hapus class
 });
 
 translationForm.addEventListener('submit', (e) => {
@@ -183,6 +187,7 @@ translationForm.addEventListener('submit', (e) => {
     
     displayTranslations(searchTranslations.value);
     translationModal.classList.add('hidden');
+    document.body.classList.remove('modal-open'); // Hapus class
 });
 
 // Save file
@@ -210,6 +215,7 @@ saveLangBtn.addEventListener('click', () => {
     URL.revokeObjectURL(url);
 });
 
+// Update fungsi edit
 function editTranslation(index) {
     editingIndex = index;
     const item = langData[index];
@@ -219,8 +225,17 @@ function editTranslation(index) {
         document.getElementById('translationValue').value = item.value;
         document.getElementById('translationComment').value = item.comment || '';
         translationModal.classList.remove('hidden');
+        document.body.classList.add('modal-open'); // Tambahkan class
     }
 }
+
+// Tambahkan event listener untuk ESC key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !translationModal.classList.contains('hidden')) {
+        translationModal.classList.add('hidden');
+        document.body.classList.remove('modal-open'); // Hapus class
+    }
+});
 
 function deleteTranslation(index) {
     if (confirm('Hapus terjemahan ini?')) {
