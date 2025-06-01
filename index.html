@@ -394,6 +394,48 @@
                     </ol>
                 </div>
             </div>
+
+            <!-- Feedback Section -->
+            <section id="feedback" class="doc-section">
+                <h3>
+                    <span class="material-icons">feedback</span>
+                    Feedback
+                </h3>
+                <div class="doc-content">
+                    <p>Bantu kami mengembangkan GeSki Tools dengan memberikan masukan atau kritik.</p>
+
+                    <form name="feedback" netlify netlify-honeypot="bot-field" class="feedback-form">
+                        <p class="hidden">
+                            <label>Bot field: <input name="bot-field"></label>
+                        </p>
+                        
+                        <div class="form-group">
+                            <label>Nama <input type="text" name="name" required></label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Jenis Feedback 
+                                <select name="feedbackType" required>
+                                    <option value="">Pilih jenis feedback</option>
+                                    <option value="bug">Bug Report</option>
+                                    <option value="feature">Saran Fitur</option>
+                                    <option value="improvement">Saran Perbaikan</option>
+                                    <option value="other">Lainnya</option>
+                                </select>
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Pesan <textarea name="message" rows="5" required></textarea></label>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <span class="material-icons">send</span>
+                            Kirim Feedback
+                        </button>
+                    </form>
+                </div>
+            </section>
         </section>
     </main>
 

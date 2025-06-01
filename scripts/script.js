@@ -106,4 +106,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial check
     handleScroll();
 
+    // Handle feedback form submission
+    document.querySelector('form[name="feedback"]').addEventListener('submit', function(e) {
+        const nameInput = this.querySelector('input[name="name"]');
+        if (!nameInput.value.trim()) {
+            e.preventDefault();
+            nameInput.value = 'Anonymous';
+            this.submit();
+        }
+    });
 });
