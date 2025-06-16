@@ -64,7 +64,23 @@
 
     <div id="fileContent" class="hidden">
       <h2>Daftar Skin</h2>
-      <ul id="skinList"></ul>
+      <ul id="skinList">
+        <li class="skin-item">
+          <div class="skin-info">
+            <!-- Skin details here -->
+          </div>
+          <div class="skin-actions">
+            <button class="action-btn edit-btn" aria-label="Edit Skin">
+              <span class="material-icons" aria-hidden="true">edit</span>
+              <span class="sr-only">Edit</span>
+            </button>
+            <button class="action-btn delete-btn" aria-label="Delete Skin">
+              <span class="material-icons" aria-hidden="true">delete</span>
+              <span class="sr-only">Delete</span>
+            </button>
+          </div>
+        </li>
+      </ul>
       <button id="addSkinBtn">Tambah Skin Baru</button>
       <button id="saveJsonBtn">Simpan dan Unduh JSON</button>
     </div>

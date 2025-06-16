@@ -184,20 +184,45 @@ function displaySkins(skins) {
   skinList.innerHTML = ''; // Kosongkan daftar sebelumnya
   skins.forEach((skin, index) => {
     const li = document.createElement('li');
-    li.textContent = `${index + 1}. ${skin.localization_name} (${skin.type})`;
-    li.dataset.index = index;
+    li.className = 'skin-item';
 
-    // Tambahkan tombol edit dan hapus
+    // Skin info
+    const infoDiv = document.createElement('div');
+    infoDiv.className = 'skin-info';
+    infoDiv.innerHTML = `
+      <span class="skin-name">${skin.localization_name || ''}</span>
+      <span class="skin-type ${skin.type === 'paid' ? 'paid' : 'free'}">${skin.type}</span>
+    `;
+
+    // Actions
+    const actionsDiv = document.createElement('div');
+    actionsDiv.className = 'skin-actions';
+
+    // Edit button
     const editBtn = document.createElement('button');
-    editBtn.textContent = 'Edit';
+    editBtn.className = 'action-btn edit-btn';
+    editBtn.setAttribute('aria-label', 'Edit Skin');
+    editBtn.innerHTML = `
+      <span class="material-icons" aria-hidden="true">edit</span>
+      <span class="sr-only">Edit</span>
+    `;
     editBtn.addEventListener('click', () => openSkinForm(index));
 
+    // Delete button
     const deleteBtn = document.createElement('button');
-    deleteBtn.textContent = 'Hapus';
+    deleteBtn.className = 'action-btn delete-btn';
+    deleteBtn.setAttribute('aria-label', 'Delete Skin');
+    deleteBtn.innerHTML = `
+      <span class="material-icons" aria-hidden="true">delete</span>
+      <span class="sr-only">Delete</span>
+    `;
     deleteBtn.addEventListener('click', () => deleteSkin(index));
 
-    li.appendChild(editBtn);
-    li.appendChild(deleteBtn);
+    actionsDiv.appendChild(editBtn);
+    actionsDiv.appendChild(deleteBtn);
+
+    li.appendChild(infoDiv);
+    li.appendChild(actionsDiv);
     skinList.appendChild(li);
   });
 }

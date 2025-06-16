@@ -15,6 +15,16 @@
   --radius-lg: 1rem;
 }
 
+html, body {
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* IE and Edge */
+  overflow: auto;
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;                /* Chrome, Safari, Opera */
+}
+
 /* Reset & Base */
 * {
   margin: 0;

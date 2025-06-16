@@ -16,6 +16,16 @@
   --radius-lg: 1rem;
 }
 
+html, body {
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* IE and Edge */
+  overflow: auto;
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;                /* Chrome, Safari, Opera */
+}
+
 /* Reset & Base */
 * {
   margin: 0;
@@ -587,4 +597,79 @@ button:hover {
   .container { padding: 24px; border-radius: 12px; }
   button { font-size: 16px; padding: 12px 18px; }
   .skin-item { padding: 16px 20px; }
+}
+
+/* Action Buttons for Skin Editor */
+.skin-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: background 0.15s, box-shadow 0.15s, color 0.15s;
+  outline: none;
+  position: relative;
+}
+
+.action-btn .material-icons {
+  font-size: 1.35rem;
+  vertical-align: middle;
+}
+
+.edit-btn {
+  color: #2563eb; /* blue-600 */
+}
+.edit-btn:hover,
+.edit-btn:focus-visible {
+  background: rgba(37,99,235,0.08);
+  color: #1d4ed8; /* blue-700 */
+}
+
+.delete-btn {
+  color: #dc2626; /* red-600 */
+}
+.delete-btn:hover,
+.delete-btn:focus-visible {
+  background: rgba(220,38,38,0.08);
+  color: #b91c1c; /* red-700 */
+}
+
+/* Accessibility: visually hidden text for screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+
+/* Tooltip styling */
+.action-btn[aria-label]:hover::after,
+.action-btn[aria-label]:focus-visible::after {
+  content: attr(aria-label);
+  position: absolute;
+  bottom: -2.2em;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #222;
+  color: #fff;
+  font-size: 0.85rem;
+  padding: 0.25em 0.75em;
+  border-radius: 0.4em;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0.95;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
