@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sakura Generator Portal</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Gabungan dari kedua aplikasi */
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .form-select, .form-input, .form-textarea {
+            background-color: #f3f4f6; /* gray-100 */
+            border-color: #d1d5db; /* gray-300 */
+            color: #111827; /* gray-900 */
+        }
+        .dark .form-select, .dark .form-input, .dark .form-textarea {
+             background-color: #1f2937;
+             border-color: #4b5563;
+             color: #d1d5db;
+        }
+        .form-select:focus, .form-input:focus, .form-textarea:focus {
+            --tw-ring-color: #38bdf8;
+            border-color: #38bdf8;
+            box-shadow: 0 0 0 2px var(--tw-ring-color);
+            outline: none;
+        }
+        .loader {
+            border: 4px solid #e5e7eb; /* gray-200 */
+            border-top: 4px solid #38bdf8;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+        .dark .loader {
+             border: 4px solid #374151; /* gray-700 */
+             border-top: 4px solid #38bdf8;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .custom-file-upload {
+            border: 2px dashed #4b5563;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 12px;
+            cursor: pointer;
+            height: 100%;
+            width: 100%;
+            border-radius: 0.5rem;
+        }
+        .custom-file-upload:hover {
+            border-color: #38bdf8;
+        }
+        input[type="file"] {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased">
+
+    <!-- === BAGIAN 1: HOMEPAGE PORTAL === -->
+    <main id="page-portal" class="flex items-center justify-center min-h-screen p-4">
+        <div class="w-full max-w-6xl mx-auto text-center py-12">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">Pilih Generator</h1>
+            <p class="text-md md:text-lg text-gray-600 mb-12">Generator prompt gratis untuk Gemini VEO2 dan VEO3</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 justify-center items-stretch gap-8">
+                <!-- Pilihan 1: Navigasi ke Generator Prompt dari Video -->
+                <div id="navigate-to-video" 
+                   class="cursor-pointer group w-full bg-white p-8 rounded-xl border border-gray-200 shadow-sm hover:shadow-lg hover:border-blue-500 transition-all duration-300 transform hover:-translate-y-2 flex flex-col items-center text-center md:items-start md:text-left gap-4">
+                    <div class="bg-blue-100 text-blue-600 rounded-lg w-12 h-12 flex items-center justify-center">
+                        <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9A2.25 2.25 0 0 0 13.5 5.25h-9a2.25 2.25 0 0 0-2.25 2.25v9A2.25 2.25 0 0 0 4.5 18.75Z" />
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-900">BUAT PROMPT DARI VIDEO</h2>
+                </div>
+                <!-- Pilihan 2: Navigasi ke Generator Prompt Foto & Iklan -->
+                <div id="navigate-to-iklan"
+                   class="cursor-pointer group w-full bg-white p-8 rounded-xl border border-gray-200 shadow-sm hover:shadow-lg hover:border-teal-500 transition-all duration-300 transform hover:-translate-y-2 flex flex-col items-center text-center md:items-start md:text-left gap-4">
+                    <div class="bg-teal-100 text-teal-600 rounded-lg w-12 h-12 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283-.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-900">BUAT PROMPT FOTO DAN VIDEO</h2>
+                </div>
+                <!-- Pilihan 3: Navigasi ke Halaman Baru -->
+                <div id="navigate-to-new-page"
+                   class="cursor-pointer group w-full bg-white p-8 rounded-xl border border-gray-200 shadow-sm hover:shadow-lg hover:border-purple-500 transition-all duration-300 transform hover:-translate-y-2 flex flex-col items-center text-center md:items-start md:text-left gap-4">
+                    <div class="bg-purple-100 text-purple-600 rounded-lg w-12 h-12 flex items-center justify-center">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-900">GABUNGKAN DAN BUAT PROMPT</h2>
+                </div>
+            </div>
+            <footer class="mt-12 text-sm text-gray-500">
+                <p>&copy; <span id="year"></span> sakura. Seluruh hak cipta dilindungi.</p>
+                <p class="mt-2">Semua yang dihasilkan di website ini otomatis oleh AI, saya tidak bertanggung jawab apabila hasil disalahgunakan.</p>
+                <p class="mt-2">Hubungi saya di <a href="https://www.facebook.com/S4QR4" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">FACEBOOK</a></p>
+            </footer>
+        </div>
+    </main>
+    
+    <!-- === BAGIAN 2: GENERATOR PROMPT FOTO & IKLAN (BARU) === -->
+    <main id="page-generator-iklan" class="hidden">
+       <div class="p-4 sm:p-8">
+            <div class="max-w-4xl mx-auto bg-white p-6 sm:p-8 rounded-lg shadow-2xl border border-gray-200">
+                <header class="text-center mb-8 relative">
+                     <button id="iklan-back-to-portal" class="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold p-2 rounded-full transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                    </button>
+                    <h1 class="text-3xl md:text-4xl font-extrabold text-gray-800 tracking-wide">GENERATOR PROMPT VEO3</h1>
+                </header>
+
+                <div class="mb-10 p-6 bg-blue-50 border-2 border-dashed border-blue-200 rounded-lg">
+                    <h2 class="text-2xl font-bold text-gray-700 mb-4 border-b-2 border-blue-300 pb-2">Otomatis dari Gambar</h2>
+                    <p class="text-gray-600 mb-4">Unggah foto untuk mengisi detail & adegan secara otomatis.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                        <div class="w-full h-48 bg-gray-100 rounded-lg">
+                           <label for="iklan-v3-image-upload" class="flex flex-col items-center justify-center h-full w-full cursor-pointer rounded-lg border-2 border-dashed border-gray-300 hover:bg-gray-200 hover:border-gray-400 transition-colors">
+                                <img id="iklan-v3-image-preview" class="hidden h-full w-full object-cover rounded-lg" alt="Pratinjau Gambar">
+                                <span id="iklan-v3-upload-placeholder" class="text-gray-500 text-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                                    <p class="text-sm mt-1">Unggah Foto</p>
+                                </span>
+                           </label>
+                           <input id="iklan-v3-image-upload" type="file" class="hidden" accept="image/*">
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <button id="iklan-v3-analyze-button" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed">
+                                Buat Prompt & Adegan dari Gambar
+                            </button>
+                             <div id="iklan-v3-analysis-error" class="text-red-500 text-xs mt-2 text-center"></div>
+                        </div>
+                    </div>
+                    <div id="iklan-v3-photo-prompt-container" class="hidden mt-8 p-6 bg-indigo-50 border border-indigo-200 rounded-lg shadow-inner">
+                        <h2 class="text-xl font-bold text-indigo-800 mb-4 border-b-2 border-indigo-300 pb-2">Prompt Foto:</h2>
+                        <pre id="iklan-v3-photo-prompt-output" class="whitespace-pre-wrap font-mono text-sm text-gray-800 bg-white p-4 rounded-md border border-gray-300 overflow-auto max-h-96"></pre>
+                        <div class="flex justify-center mt-4">
+                            <button id="iklan-v3-copy-photo-button" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-lg shadow-md transform transition-all duration-300 hover:scale-105">Salin Prompt Foto</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="iklan-v3-manual-form" class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 mb-8">
+                    <!-- Form fields will be injected here by JavaScript -->
+                </div>
+
+                <div class="flex justify-center">
+                    <button id="iklan-v3-generate-final-button" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 flex items-center justify-center">
+                        Gabungkan & Buat Prompt Final
+                    </button>
+                </div>
+
+                <div id="iklan-v3-final-error" class="hidden mt-8 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg"></div>
+
+                <div id="iklan-v3-final-prompt-container" class="hidden mt-8 p-6 bg-gray-50 border border-gray-200 rounded-lg shadow-inner">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4 border-b-2 border-gray-300 pb-2">Hasil Prompt Final Anda:</h2>
+                    <pre id="iklan-v3-final-prompt-output" class="whitespace-pre-wrap font-mono text-sm text-gray-800 bg-white p-4 rounded-md border border-gray-300 overflow-auto max-h-96"></pre>
+                    <div class="flex justify-center mt-4">
+                        <button id="iklan-v3-copy-final-button" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg shadow-md">Salin Prompt Final</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- === SECTION 3: VIDEO TO PROMPT GENERATOR === -->
+    <main id="page-generator-video" class="hidden">
+        <div id="video-prompt-app-container" class="p-4 sm:p-8">
+            <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-lg w-full max-w-4xl mx-auto">
+                <header class="text-center mb-8 relative">
+                     <button id="video-back-to-portal" class="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold p-2 rounded-full transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                    </button>
+                    <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">🎬 BUAT PROMPT DARI VIDEO</h1>
+                    <p class="text-gray-600 mt-2">Durasi maksimal video 10 detik</p>
+                </header>
+
+                <div class="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center bg-gray-50 hover:bg-gray-100 transition duration-300 cursor-pointer" id="drop-zone">
+                    <input type="file" id="video-file" accept="video/mp4,video/webm,video/ogg" class="hidden">
+                    <div class="flex flex-col items-center">
+                        <svg class="w-12 h-12 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9A2.25 2.25 0 0 0 13.5 5.25h-9a2.25 2.25 0 0 0-2.25 2.25v9A2.25 2.25 0 0 0 4.5 18.75Z" />
+                        </svg>
+                        <p class="mt-2 text-sm text-gray-600">
+                            <span class="font-semibold text-blue-600">Klik untuk unggah</span> atau seret video
+                        </p>
+                        <p class="text-xs text-gray-500" id="file-info">Maks 10 detik</p>
+                    </div>
+                </div>
+
+                <div id="video-preview-container" class="mt-6 hidden">
+                    <h2 class="text-xl font-bold text-gray-800 mb-3 text-center">Pratinjau Video</h2>
+                    <div id="video-preview" class="bg-black rounded-lg overflow-hidden"></div>
+                </div>
+                 <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="video-spoken-words" class="block text-sm font-medium text-gray-700">Kata yang Diucapkan (Opsional)</label>
+                        <textarea id="video-spoken-words" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Masukkan dialog di sini..."></textarea>
+                    </div>
+                    <div>
+                        <label for="video-music" class="block text-sm font-medium text-gray-700">Musik/Suara (Opsional)</label>
+                        <select id="video-music" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                            <option>Otomatis berdasarkan video</option>
+                            <option>Musik Sinematik Dramatis</option>
+                            <option>Musik Ceria dan Bersemangat</option>
+                            <option>Suara Alam yang Tenang</option>
+                            <option>Hening (Tanpa Suara)</option>
+                        </select>
+                    </div>
+                </div>
+                <button id="extract-button" class="mt-4 w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 disabled:bg-gray-400 disabled:cursor-not-allowed">
+                    Analisis Video
+                </button>
+
+                <div id="status" class="text-center mt-4 font-medium" style="display: none;"></div>
+
+                <div id="result-grid" class="hidden grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 gap-4 mt-6"></div>
+                
+                <button id="generate-prompt-button" class="mt-6 w-full bg-emerald-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-emerald-700 transition duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-opacity-50 disabled:bg-gray-400 disabled:cursor-not-allowed" style="display: none;">
+                    Buat Prompt Sinematik
+                </button>
+                
+                <div id="prompt-result-container" class="mt-6" style="display: none;">
+                    <h2 class="text-xl font-bold text-gray-800 mb-3 text-center">✨ Hasil Prompt</h2>
+                    <div id="prompt-loading" class="flex justify-center items-center flex-col">
+                        <div class="loader"></div>
+                        <p class="text-gray-600 mt-2">Processing...</p>
+                    </div>
+                    <div id="prompt-output-wrapper" style="display: none;">
+                        <div id="prompt-output" class="p-4 bg-gray-50 rounded-lg border border-gray-200 text-gray-700 whitespace-pre-wrap min-h-[100px]"></div>
+                        <button id="copy-prompt-button" class="mt-3 w-full sm:w-auto bg-gray-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-gray-700 transition duration-300">
+                            Salin Prompt
+                        </button>
+                        <p class="text-xs text-gray-500 mt-2">Mohon sesuaikan prompt jika belum sempurna.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- === BAGIAN 4: GABUNGKAN 2 VIDEO === -->
+    <main id="page-new" class="hidden">
+        <div id="new-page-video-prompt-app-container" class="p-4 sm:p-8">
+            <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-lg w-full max-w-4xl mx-auto">
+                <header class="text-center mb-8 relative">
+                     <button id="new-page-back-to-portal" class="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold p-2 rounded-full transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                    </button>
+                    <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">🎬 GABUNGKAN DAN BUAT PROMPT</h1>
+                    <p class="text-gray-600 mt-2">Unggah 2 media (video atau foto) untuk digabungkan</p>
+                </header>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <!-- Upload Zone 1 -->
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-700 mb-2 text-center">Media 1</h3>
+                        <div class="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center bg-gray-50 hover:bg-gray-100 transition duration-300 cursor-pointer aspect-video flex items-center justify-center" id="new-page-drop-zone-1">
+                            <input type="file" id="new-page-video-file-1" accept="video/*,image/*" class="hidden">
+                            <div id="new-page-placeholder-1" class="flex flex-col items-center pointer-events-none">
+                                <svg class="w-12 h-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l-3 3m3-3 3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
+                                </svg>
+                                <p class="mt-2 text-sm text-gray-600"><span class="font-semibold text-blue-600">Klik untuk unggah</span> atau seret</p>
+                                <p class="text-xs text-gray-500">Video (max 10d) atau Foto</p>
+                            </div>
+                             <div id="new-page-preview-1" class="w-full h-full"></div>
+                        </div>
+                         <p class="text-xs text-gray-500 text-center mt-1" id="new-page-file-info-1">Belum ada file</p>
+                    </div>
+                    <!-- Upload Zone 2 -->
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-700 mb-2 text-center">Media 2</h3>
+                         <div class="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center bg-gray-50 hover:bg-gray-100 transition duration-300 cursor-pointer aspect-video flex items-center justify-center" id="new-page-drop-zone-2">
+                            <input type="file" id="new-page-video-file-2" accept="video/*,image/*" class="hidden">
+                             <div id="new-page-placeholder-2" class="flex flex-col items-center pointer-events-none">
+                                <svg class="w-12 h-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l-3 3m3-3 3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
+                                </svg>
+                                <p class="mt-2 text-sm text-gray-600"><span class="font-semibold text-blue-600">Klik untuk unggah</span> atau seret</p>
+                                <p class="text-xs text-gray-500">Video (max 10d) atau Foto</p>
+                            </div>
+                             <div id="new-page-preview-2" class="w-full h-full"></div>
+                        </div>
+                        <p class="text-xs text-gray-500 text-center mt-1" id="new-page-file-info-2">Belum ada file</p>
+                    </div>
+                </div>
+
+                <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label for="new-page-spoken-words" class="block text-sm font-medium text-gray-700">Kata yang Diucapkan (Opsional)</label>
+                        <textarea id="new-page-spoken-words" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Masukkan dialog di sini..."></textarea>
+                    </div>
+                    <div>
+                        <label for="new-page-music" class="block text-sm font-medium text-gray-700">Musik/Suara (Opsional)</label>
+                        <select id="new-page-music" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                            <option>Otomatis berdasarkan media</option>
+                            <option>Musik Sinematik Dramatis</option>
+                            <option>Musik Ceria dan Bersemangat</option>
+                            <option>Suara Alam yang Tenang</option>
+                            <option>Hening (Tanpa Suara)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button id="new-page-extract-button" class="mt-4 w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 disabled:bg-gray-400 disabled:cursor-not-allowed">
+                    Analyze Media
+                </button>
+
+                <div id="new-page-status" class="text-center mt-4 font-medium" style="display: none;"></div>
+
+                <div id="new-page-result-grid" class="hidden grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 gap-4 mt-6"></div>
+                
+                <button id="new-page-generate-prompt-button" class="mt-6 w-full bg-emerald-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-emerald-700 transition duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-opacity-50 disabled:bg-gray-400 disabled:cursor-not-allowed" style="display: none;">
+                    Create Cinematic Prompt
+                </button>
+                
+                <div id="new-page-prompt-result-container" class="mt-6 hidden">
+                    <div class="flex justify-center">
+                         <div class="w-full md:w-3/4">
+                             <h2 class="text-xl font-bold text-gray-800 mb-3 text-center">✨ Hasil Prompt</h2>
+                             <div id="new-page-prompt-output-wrapper">
+                                <div id="new-page-prompt-output" class="p-4 bg-gray-50 rounded-lg border border-gray-200 text-gray-700 whitespace-pre-wrap min-h-[200px]"></div>
+                                <button id="new-page-copy-prompt-button" class="mt-3 w-full sm:w-auto bg-gray-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-gray-700 transition duration-300">
+                                    Salin Prompt
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <script type="module">
+        // --- SCRIPT GABUNGAN UNTUK SEMUA FUNGSI ---
+        
+        // API Key sekarang akan ditangani oleh serverless function untuk keamanan.
+        // Tidak perlu menempatkan API key di sini lagi.
+        
+        // --- BAGIAN 1: NAVIGASI SPA ---
+        const pagePortal = document.getElementById('page-portal');
+        const pageGeneratorVideo = document.getElementById('page-generator-video');
+        const pageGeneratorIklan = document.getElementById('page-generator-iklan');
+        const pageNew = document.getElementById('page-new');
+        const bodyEl = document.querySelector('body');
+        
+        const navigateToVideoBtn = document.getElementById('navigate-to-video');
+        const navigateToIklanBtn = document.getElementById('navigate-to-iklan');
+        const navigateToNewPageBtn = document.getElementById('navigate-to-new-page');
+        
+        const videoBackBtn = document.getElementById('video-back-to-portal');
+        const iklanBackBtn = document.getElementById('iklan-back-to-portal');
+        const newPageBackBtn = document.getElementById('new-page-back-to-portal');
+
+        function showPage(pageId) {
+            pagePortal.classList.add('hidden');
+            pageGeneratorVideo.classList.add('hidden');
+            pageGeneratorIklan.classList.add('hidden');
+            pageNew.classList.add('hidden');
+
+            bodyEl.className = 'antialiased';
+
+            if (pageId === 'page-portal') {
+                pagePortal.classList.remove('hidden');
+                bodyEl.classList.add('bg-gray-50', 'text-gray-800');
+            } else if (pageId === 'page-generator-video') {
+                pageGeneratorVideo.classList.remove('hidden');
+                 bodyEl.classList.add('bg-white', 'text-gray-800');
+            } else if (pageId === 'page-generator-iklan') {
+                pageGeneratorIklan.classList.remove('hidden');
+                 bodyEl.classList.add('bg-gradient-to-br', 'from-blue-100', 'via-purple-100', 'to-pink-100');
+            } else if (pageId === 'page-new') {
+                pageNew.classList.remove('hidden');
+                bodyEl.classList.add('bg-white', 'text-gray-800');
+            }
+        }
+        
+        navigateToVideoBtn.addEventListener('click', () => showPage('page-generator-video'));
+        navigateToIklanBtn.addEventListener('click', () => showPage('page-generator-iklan'));
+        navigateToNewPageBtn.addEventListener('click', () => showPage('page-new'));
+        
+        videoBackBtn.addEventListener('click', () => showPage('page-portal'));
+        iklanBackBtn.addEventListener('click', () => showPage('page-portal'));
+        newPageBackBtn.addEventListener('click', () => showPage('page-portal'));
+
+        const yearSpan = document.getElementById('year');
+        if(yearSpan) {
+            yearSpan.textContent = new Date().getFullYear();
+        }
+
+        // --- BAGIAN 2: GENERATOR PROMPT FOTO & IKLAN ---
+        function setupIklanGeneratorV3() {
+            const formContainer = document.getElementById('iklan-v3-manual-form');
+            if (!formContainer) return; 
+            if (formContainer.childElementCount > 0) return;
+
+            const imageUploadEl = document.getElementById('iklan-v3-image-upload');
+            const analyzeButtonEl = document.getElementById('iklan-v3-analyze-button');
+            const imagePreviewEl = document.getElementById('iklan-v3-image-preview');
+            const uploadPlaceholderEl = document.getElementById('iklan-v3-upload-placeholder');
+            const analysisErrorEl = document.getElementById('iklan-v3-analysis-error');
+            const photoPromptContainer = document.getElementById('iklan-v3-photo-prompt-container');
+            const photoPromptOutput = document.getElementById('iklan-v3-photo-prompt-output');
+            const copyPhotoBtn = document.getElementById('iklan-v3-copy-photo-button');
+
+            const generateFinalBtn = document.getElementById('iklan-v3-generate-final-button');
+            const finalErrorEl = document.getElementById('iklan-v3-final-error');
+            const finalPromptContainer = document.getElementById('iklan-v3-final-prompt-container');
+            const finalPromptOutput = document.getElementById('iklan-v3-final-prompt-output');
+            const copyFinalBtn = document.getElementById('iklan-v3-copy-final-button');
+
+            let imageBase64 = '';
+
+            const cameraMotions = [...new Set([
+                'Pan (horizontal shift)', 'Tilt (vertical shift)', 'Dolly (move in/out)', 'Zoom',
+                'Track (follow laterally)', 'Crane/Boom (vertical movement)', 'Handheld (shaky cam)', 'Static (still)',
+                '3D Rotation', 'Orbit', 'Push In', 'Slide Left', 'Move Up', 'Tilt Up', 'Pan Left', 'Zoom In', 'Roll Right',
+                'Dolly Zoom In', 'Dynamic Push In', 'Smooth Pan', 'Whip Pan Left', 'Fast Zoom In', 'Rapid Orbit', 'Circular Pan',
+                'Focus Pull', 'Overhead Shot', 'Low Angle Shot', 'High Angle Shot', 'Eye Level Shot', 'Dutch Angle', 'POV Shot',
+                'Slow Motion', 'Time Lapse', 'Drone Shot', 'Steadicam Follow', 'Dramatic Reveal', 'Suspenseful Zoom', 'Emotional Pan',
+                'Floating Camera', 'Aerial View', 'Fish Eye Lens', 'Wide Angle Lens', 'Establishing Shot', 'Tracking Shot',
+                'Close-up', 'Extreme Close-up', 'Long Shot'
+            ])];
+            
+            const formDefinition = [
+                { type: 'heading', label: 'Character & Scene Details (Manual)', span: 'md:col-span-2' },
+                { id: 'subjek', label: 'Subject', type: 'text', placeholder: 'e.g., A woman, A product' }, { id: 'nama', label: 'Name', type: 'text', placeholder: 'e.g., John Doe' },
+                { id: 'usia', label: 'Age', type: 'text', placeholder: 'e.g., mid-20s' },
+                { id: 'bentukTubuh', label: 'Body Shape', type: 'select', options: ['Athletic', 'Curvy', 'Slim', 'Muscular', 'Average'], default: 'Average' },
+                { id: 'detailWajahRambutHidung', label: 'Consistent Face, Hair, Nose Details', type: 'select', options: ['Oval face, long wavy hair, sharp nose', 'Square face, short straight hair, small nose'], default: 'Oval face, long wavy hair, sharp nose' },
+                { id: 'pakaian', label: 'Clothing', type: 'select', options: ['Casual (t-shirt, jeans)', 'Formal (suit, evening gown)', 'Sporty (athletic wear)', 'Traditional (kebaya, batik)', 'Fantasy (hero costume, fairy dress)'], default: 'Casual (t-shirt, jeans)' },
+                { id: 'warnaPakaian', label: 'Clothing Color', type: 'select', options: ['Red', 'Blue', 'Green', 'Black', 'White'], default: 'Blue' },
+                { id: 'aksesoris', label: 'Accessories', type: 'select', options: ['Glasses', 'Hat', 'Jewelry (necklace, earrings, bracelet)', 'Bag', 'Scarf'], default: 'Glasses' },
+                { id: 'rasEtnis', label: 'Race/Ethnicity', type: 'select', options: ['Asian', 'Caucasian', 'African', 'Latin', 'Middle Eastern'], default: 'Asian' },
+                { id: 'ekspresi', label: 'Expression', type: 'text', placeholder: 'e.g., Smiling, Serious' }, { id: 'tempat', label: 'Location', type: 'text', placeholder: 'e.g., Modern cafe, Tropical beach' },
+                { id: 'waktu', label: 'Time of Day', type: 'select', options: ['Morning (golden hour)', 'Midday (bright sun)', 'Afternoon (magic hour)', 'Night (full moon)'], default: 'Afternoon (magic hour)' },
+                { type: 'heading', label: 'Camera & Video Settings', span: 'md:col-span-2 mt-8' },
+                { id: 'gerakanKameraS1', label: 'Camera Movement (Scene 1)', type: 'select-special', options: cameraMotions, default: 'Static' },
+                { id: 'gerakanKameraS2', label: 'Camera Movement (Scene 2)', type: 'select-special', options: cameraMotions, default: 'Static' },
+                { id: 'sudutPandang', label: 'Camera Angle', type: 'select', options: ['Low angle', 'High angle', 'Eye level', 'Overhead shot', 'Worm\'s eye view', 'POV (Point of View)'], default: 'Eye level' },
+                { id: 'pencahayaan', label: 'Lighting', type: 'select', options: ['Natural (sunlight)', 'Studio (controlled lighting)', 'Rembrandt', 'Butterfly', 'Split', 'Backlight', 'Low key (dark, many shadows)', 'High key (bright, minimal shadows)'], default: 'Natural (sunlight)' },
+                { id: 'gayaVideo', label: 'Video Style', type: 'select', options: ['Realistic', '3D Animation', '2D Animation', 'Cartoon', 'Anime', 'Oil Painting', 'Sketch Style', 'Cyberpunk', 'Fantasy'], default: 'Realistic' },
+                { id: 'suasanaVideo', label: 'Video Mood', type: 'select', options: ['Cheerful and energetic', 'Mysterious and tense', 'Calm and peaceful', 'Sad and melancholic', 'Epic and heroic', 'Comedic and funny'], default: 'Cheerful and energetic' },
+                { id: 'kualitas', label: 'Quality', type: 'select-simple', options: ['Normal', 'Smartphone'], default: 'Normal' },
+                { id: 'rasioAspek', label: 'Aspect Ratio', type: 'select-simple', options: ['Normal', 'Android'], default: 'Normal' },
+                { id: 'suaraMusik', label: 'Sound or Music', type: 'text', placeholder: 'e.g., Relaxing lo-fi music, Ocean waves' },
+                { type: 'heading', label: 'Scene Structure & Dialogue', span: 'md:col-span-2 mt-8' },
+                { id: 'scene1Input', label: 'Scene 1', type: 'textarea', span: 'md:col-span-2' },
+                { id: 'scene2Input', label: 'Scene 2', type: 'textarea', span: 'md:col-span-2' },
+                { id: 'sceneManual', label: 'Manual Scene (Fill this in to write the entire scene yourself)', type: 'textarea-long', span: 'md:col-span-2' },
+                { id: 'sceneOtomatis', label: 'Automatic Scene (from manual input)', type: 'select-simple', options: ['No', 'Yes'], default: 'No', note: 'Only applies if you manually fill in Scene 1 & 2 above.' },
+                { id: 'kalimatDiucapkan', label: 'Spoken Dialogue', type: 'text' },
+                { id: 'detailTambahan', label: 'Additional Details', type: 'text' },
+            ];
+
+            // Render Form
+            formDefinition.forEach(field => {
+                if (field.type === 'heading') {
+                    const h2 = document.createElement('h2');
+                    h2.className = `text-2xl font-bold text-gray-700 mb-4 border-b-2 border-blue-300 pb-2 ${field.span}`;
+                    h2.textContent = field.label;
+                    formContainer.appendChild(h2);
+                    return;
+                }
+
+                const wrapper = document.createElement('div');
+                wrapper.className = `mb-4 ${field.span || ''}`;
+                
+                const label = document.createElement('label');
+                label.className = 'block text-gray-700 text-sm font-bold mb-2';
+                label.textContent = field.label + ':';
+                wrapper.appendChild(label);
+                
+                let inputEl;
+                if (field.type.startsWith('select')) {
+                    inputEl = document.createElement('select');
+                    inputEl.className = 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-500 form-select';
+                    field.options.forEach(opt => {
+                        const option = document.createElement('option');
+                        if (field.type === 'select-special') {
+                            option.value = opt.split('(')[0].trim();
+                            option.textContent = opt;
+                        } else {
+                            option.value = opt;
+                            option.textContent = opt;
+                        }
+                        inputEl.appendChild(option);
+                    });
+                    if (field.type === 'select') { // with manual option
+                        const manualOption = document.createElement('option');
+                        manualOption.value = 'Enter manually';
+                        manualOption.textContent = 'Enter manually...';
+                        inputEl.appendChild(manualOption);
+                    }
+                } else if (field.type.startsWith('textarea')) {
+                    inputEl = document.createElement('textarea');
+                    inputEl.className = 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-500 resize-y form-textarea';
+                    inputEl.rows = field.type === 'textarea-long' ? 6 : 3;
+                } else { // text
+                    inputEl = document.createElement('input');
+                    inputEl.type = 'text';
+                    inputEl.className = 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-500 form-input';
+                    if (field.placeholder) {
+                        inputEl.placeholder = field.placeholder;
+                    }
+                }
+
+                inputEl.id = `iklan-v3-${field.id}`;
+                if (field.default) {
+                     inputEl.value = field.default;
+                }
+
+                wrapper.appendChild(inputEl);
+                
+                if (field.type === 'select') {
+                    const manualInput = document.createElement('input');
+                    manualInput.type = 'text';
+                    manualInput.id = `iklan-v3-${field.id}-manual`;
+                    manualInput.className = 'mt-2 hidden shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight form-input';
+                    manualInput.placeholder = `Enter ${field.label.toLowerCase()} manually`;
+                    wrapper.appendChild(manualInput);
+
+                    inputEl.addEventListener('change', () => {
+                        manualInput.classList.toggle('hidden', inputEl.value !== 'Enter manually');
+                    });
+                }
+                
+                if (field.note) {
+                    const note = document.createElement('p');
+                    note.className = 'text-xs text-gray-500 mt-1';
+                    note.textContent = field.note;
+                    wrapper.appendChild(note);
+                }
+
+                formContainer.appendChild(wrapper);
+            });
+            
+            function getFieldValue(id) {
+                const el = document.getElementById(`iklan-v3-${id}`);
+                const manualEl = document.getElementById(`iklan-v3-${id}-manual`);
+                if (el.tagName === 'SELECT' && el.value === 'Enter manually' && manualEl) {
+                    return manualEl.value;
+                }
+                return el.value;
+            }
+            
+            async function callV3GeminiAPI(prompt, image = null) {
+                const url = `/.netlify/functions/gemini`; // Updated URL
+                
+                const parts = [{ text: prompt }];
+                if (image) {
+                     parts.push({ inlineData: { mimeType: image.mimeType, data: image.data } });
+                }
+
+                const payload = {
+                    contents: [{ role: "user", parts: parts }],
+                    generationConfig: {
+                        responseMimeType: "application/json",
+                        responseSchema: {
+                            type: "OBJECT",
+                            properties: {
+                                "subjek": { "type": "STRING" }, "rasEtnis": { "type": "STRING" },
+                                "pose": { "type": "STRING" }, "pakaian": { "type": "STRING" },
+                                "aksesoris": { "type": "STRING" }, "tempat": { "type": "STRING" },
+                                "suasanaVideo": { "type": "STRING" }, "gayaVideo": { "type": "STRING" },
+                                "detailTambahan": { "type": "STRING" }, "scene1": { "type": "STRING" },
+                                "gerakanKameraS1": { "type": "STRING" }, "scene2": { "type": "STRING" },
+                                "gerakanKameraS2": { "type": "STRING" }
+                            },
+                             required: ["subjek", "rasEtnis", "pose", "pakaian", "aksesoris", "tempat", "suasanaVideo", "gayaVideo", "detailTambahan", "scene1", "gerakanKameraS1", "scene2", "gerakanKameraS2"]
+                        }
+                    }
+                };
+
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (!response.ok) {
+                    let errorBody = 'Could not read error body.';
+                    try {
+                        errorBody = await response.text();
+                    } catch (e) {
+                        console.error("Failed to read error body:", e);
+                    }
+                    console.error("API Error Body:", errorBody);
+                    throw new Error(`API request failed with status ${response.status}. Details: ${errorBody || 'No details.'}`);
+                }
+                const result = await response.json();
+                 if (result.candidates && result.candidates.length > 0 && result.candidates[0].content.parts[0].text) {
+                     return JSON.parse(result.candidates[0].content.parts[0].text);
+                 }
+                 console.error("Invalid API Response:", result);
+                 throw new Error("No valid response from API.");
+            }
+            
+            imageUploadEl.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    analysisErrorEl.textContent = '';
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                        imageBase64 = reader.result;
+                        imagePreviewEl.src = imageBase64;
+                        imagePreviewEl.classList.remove('hidden');
+                        uploadPlaceholderEl.classList.add('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    imageBase64 = '';
+                    analysisErrorEl.textContent = 'Please select a valid image file.';
+                    imagePreviewEl.classList.add('hidden');
+                    uploadPlaceholderEl.classList.remove('hidden');
+                }
+            });
+
+            analyzeButtonEl.addEventListener('click', async () => {
+                if (!imageBase64) {
+                    analysisErrorEl.textContent = 'Please upload an image first.';
+                    return;
+                }
+                analysisErrorEl.textContent = '';
+                photoPromptContainer.classList.add('hidden');
+                analyzeButtonEl.disabled = true;
+                analyzeButtonEl.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Analyzing...`;
+                
+                try {
+                    const analysisPrompt = `Analyze this image in extreme detail for a cinematic video prompt. Your response MUST be a valid JSON object. Describe the following keys with rich, visual language: "subjek" (main person/object), "rasEtnis", "pose", "pakaian" (describe each item), "aksesoris", "tempat" (background details), "suasanaVideo" (mood/atmosphere), "gayaVideo" (e.g., cinematic, realistic), "detailTambahan". Also, invent two distinct, creative scenes: "scene1" and "scene2", and suggest appropriate camera movements for each: "gerakanKameraS1" and "gerakanKameraS2". Ensure all keys in the schema are present and filled with detailed descriptions in English.`;
+
+                    const data = await callV3GeminiAPI(analysisPrompt, {
+                        mimeType: imageBase64.split(';')[0].split(':')[1],
+                        data: imageBase64.split(',')[1]
+                    });
+                    
+                    for (const key in data) {
+                        const el = document.getElementById(`iklan-v3-${key}`);
+                        if (el) {
+                            if (el.tagName === 'SELECT' && ![...el.options].some(o => o.value.startsWith(data[key].split('(')[0].trim()))) {
+                                const manualEl = document.getElementById(`iklan-v3-${key}-manual`);
+                                if (manualEl) {
+                                    el.value = 'Enter manually';
+                                    manualEl.value = data[key];
+                                    manualEl.classList.remove('hidden');
+                                }
+                            } else {
+                                el.value = data[key];
+                            }
+                        }
+                    }
+                    if (data.scene1) document.getElementById('iklan-v3-scene1Input').value = data.scene1;
+                    if (data.scene2) document.getElementById('iklan-v3-scene2Input').value = data.scene2;
+                    let photoPromptText = `Subject: ${data.subjek}.\nRace/Ethnicity: ${data.rasEtnis}.\nPose: ${data.pose}.\nClothing: ${data.pakaian}.\nAccessories: ${data.aksesoris}.\nLocation: ${data.tempat}.\nStyle: ${data.gayaVideo}.\nMood: ${data.suasanaVideo}.`;
+                    photoPromptOutput.textContent = photoPromptText;
+                    photoPromptContainer.classList.remove('hidden');
+
+                } catch (err) {
+                    analysisErrorEl.textContent = 'Failed to analyze image: ' + err.message;
+                } finally {
+                    analyzeButtonEl.disabled = false;
+                    analyzeButtonEl.textContent = 'Create Prompt & Scenes from Image';
+                }
+            });
+            
+            generateFinalBtn.addEventListener('click', () => {
+                 finalErrorEl.classList.add('hidden');
+                 finalPromptContainer.classList.add('hidden');
+                 generateFinalBtn.disabled = true;
+                 generateFinalBtn.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Generating...`;
+                
+                 try {
+                     const values = {};
+                     formDefinition.forEach(field => {
+                         if (field.id) values[field.id] = getFieldValue(field.id);
+                     });
+                     
+                     let promptText = `Subject: ${values.subjek}.\n\nName: ${values.nama}.\nAge: ${values.usia}.\nBody Shape: ${values.bentukTubuh}.\nConsistent Facial Details: ${values.detailWajahRambutHidung}.\nClothing: ${values.pakaian}.\nClothing Color: ${values.warnaPakaian}.\nAccessories: ${values.aksesoris}.\nRace/Ethnicity: ${values.rasEtnis}.\nExpression: ${values.ekspresi}.\nLocation: ${values.tempat}.\nTime: ${values.waktu}.\n\nCamera Movement (Scene 1): ${values.gerakanKameraS1}.\nCamera Movement (Scene 2): ${values.gerakanKameraS2}.\n\nCamera Angle (Scene 1): ${values.sudutPandang}.\nCamera Angle (Scene 2): ${values.sudutPandang}.\n\nLighting: ${values.pencahayaan}.\nVideo Style: ${values.gayaVideo}.\nVideo Mood: ${values.suasanaVideo}.\nAudio/Music: ${values.suaraMusik}.\n`;
+
+                     if (values.sceneManual) {
+                         promptText += `\nScene Manual: ${values.sceneManual}`;
+                     } else {
+                         promptText += `\nScene 1: ${values.scene1Input}.\nScene 2: ${values.scene2Input}.\n`;
+                     }
+
+                     promptText += `\nDialogue: "${values.kalimatDiucapkan}"`;
+
+                     let additionalDetailsParts = [];
+                     if (values.detailTambahan) additionalDetailsParts.push(values.detailTambahan);
+                     if (values.kualitas === 'Smartphone') additionalDetailsParts.push("low quality, raw footage, unedited look, consumer-grade camera quality, imperfect skin, visible pores, amateur composition and result, looks like it was shot on a cheap android phone, extremely high realism to resemble a real android video");
+                     if (values.rasioAspek === 'Android') additionalDetailsParts.push("aspect ratio 9:16, vertical frame");
+
+                     if (additionalDetailsParts.length > 0) {
+                         promptText += `\n\nAdditional Details: ${additionalDetailsParts.join('\n')}`;
+                     }
+
+                     finalPromptOutput.textContent = promptText.trim();
+                     finalPromptContainer.classList.remove('hidden');
+
+                 } catch (e) {
+                     finalErrorEl.textContent = 'Failed to create prompt: ' + e.message;
+                     finalErrorEl.classList.remove('hidden');
+                 } finally {
+                     generateFinalBtn.disabled = false;
+                     generateFinalBtn.textContent = 'Combine & Create Final Prompt';
+                 }
+            });
+
+            function copyHandler(text, buttonEl, successText) {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    const originalHTML = buttonEl.innerHTML;
+                    buttonEl.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>${successText}`;
+                    setTimeout(() => {
+                        buttonEl.innerHTML = originalHTML;
+                    }, 2000);
+                } catch (err) {
+                    console.error('Failed to copy: ', err);
+                }
+                document.body.removeChild(textArea);
+            }
+
+            copyPhotoBtn.addEventListener('click', () => copyHandler(photoPromptOutput.textContent, copyPhotoBtn, 'Copied!'));
+            copyFinalBtn.addEventListener('click', () => copyHandler(finalPromptOutput.textContent, copyFinalBtn, 'Copied!'));
+        }
+
+        // --- BAGIAN 3: GENERATOR PROMPT VIDEO ORIGINAL ---
+        function setupVideoGenerator() {
+             if (!document.getElementById('video-prompt-app-container')) return;
+             if (document.getElementById('video-prompt-app-container').getAttribute('data-initialized')) return;
+             document.getElementById('video-prompt-app-container').setAttribute('data-initialized', 'true');
+
+             const dropZone = document.getElementById('drop-zone');
+             const fileInput = document.getElementById('video-file');
+             const extractButton = document.getElementById('extract-button');
+             const statusDiv = document.getElementById('status');
+             const resultGrid = document.getElementById('result-grid');
+             const fileInfoDisplay = document.getElementById('file-info');
+             const videoPreviewContainer = document.getElementById('video-preview-container');
+             const videoPreview = document.getElementById('video-preview');
+             const generatePromptButton = document.getElementById('generate-prompt-button');
+             const promptResultContainer = document.getElementById('prompt-result-container');
+             const promptLoading = document.getElementById('prompt-loading');
+             const promptOutputWrapper = document.getElementById('prompt-output-wrapper');
+             const promptOutput = document.getElementById('prompt-output');
+             const copyPromptButton = document.getElementById('copy-prompt-button');
+             const spokenWordsInput = document.getElementById('video-spoken-words');
+             const musicSelect = document.getElementById('video-music');
+
+             let selectedFile = null;
+
+             function resetUI() {
+                 resultGrid.innerHTML = '';
+                 statusDiv.style.display = 'none';
+                 extractButton.disabled = true;
+                 extractButton.textContent = 'Analyze Video';
+                 videoPreviewContainer.classList.add('hidden');
+                 videoPreview.innerHTML = '';
+                 generatePromptButton.style.display = 'none';
+                 promptResultContainer.style.display = 'none';
+                 fileInfoDisplay.textContent = 'Max 10 seconds';
+                 fileInput.value = '';
+                 spokenWordsInput.value = '';
+                 musicSelect.value = 'Otomatis berdasarkan video';
+                 selectedFile = null;
+             }
+
+             function handleFileSelect(file) {
+                 if (!file || !file.type.startsWith('video/')) {
+                     showStatus('Selected file is not a video. Please choose another file.', true);
+                     resetUI();
+                     return;
+                 }
+
+                 showStatus('Analyzing video duration...', false);
+                 extractButton.disabled = true;
+
+                 const video = document.createElement('video');
+                 video.preload = 'metadata';
+                 const objectURL = URL.createObjectURL(file);
+                 video.src = objectURL;
+
+                 video.onloadedmetadata = function() {
+                     const duration = video.duration;
+                     
+                     if (duration > 10.5) {
+                         showStatus(`Video is too long (${duration.toFixed(1)}s). Please select a video up to 10 seconds.`, true);
+                         resetUI();
+                         URL.revokeObjectURL(objectURL);
+                     } else {
+                         selectedFile = file;
+                         fileInfoDisplay.textContent = `${selectedFile.name} (${duration.toFixed(1)}s)`;
+                         extractButton.disabled = false;
+                         showStatus('Video is ready to be analyzed.', false);
+                         
+                         videoPreview.innerHTML = ''; 
+                         const previewVideoElement = document.createElement('video');
+                         previewVideoElement.src = objectURL;
+                         previewVideoElement.controls = true;
+                         previewVideoElement.muted = true;
+                         previewVideoElement.autoplay = true;
+                         previewVideoElement.loop = true;
+                         previewVideoElement.className = "w-full rounded-lg";
+                         videoPreview.appendChild(previewVideoElement);
+                         videoPreviewContainer.classList.remove('hidden');
+
+                         generatePromptButton.style.display = 'none';
+                         promptResultContainer.style.display = 'none';
+                     }
+                 };
+
+                 video.onerror = function() {
+                     URL.revokeObjectURL(objectURL);
+                     showStatus('Failed to read video metadata. The format may not be supported.', true);
+                     resetUI();
+                 };
+             }
+
+             async function extractFrames() {
+                 if (!selectedFile) {
+                     showStatus('Please select a video file first.', true);
+                     return;
+                 }
+
+                 extractButton.disabled = true;
+                 extractButton.textContent = 'Processing...';
+                 generatePromptButton.style.display = 'none';
+                 promptResultContainer.style.display = 'none';
+                 showStatus('Processing...', false);
+                 resultGrid.innerHTML = ''; 
+
+                 const video = document.createElement('video');
+                 const videoURL = URL.createObjectURL(selectedFile);
+                 video.src = videoURL;
+                 const canvas = document.createElement('canvas');
+                 const context = canvas.getContext('2d');
+
+                 function captureFrame(seekTime) {
+                     return new Promise((resolve, reject) => {
+                         video.currentTime = seekTime;
+                         video.onseeked = () => {
+                             try {
+                                 canvas.width = video.videoWidth;
+                                 canvas.height = video.videoHeight;
+                                 context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+                                 const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+                                 
+                                 const img = document.createElement('img');
+                                 img.src = dataUrl;
+                                 img.alt = `Frame at ${seekTime.toFixed(2)}s`;
+                                 
+                                 resolve(img);
+                             } catch(err) {
+                                 reject(err);
+                             }
+                         };
+                         video.onerror = (e) => reject(new Error('Failed to load or process video.'));
+                     });
+                 }
+                 
+                 video.onloadedmetadata = async () => {
+                     try {
+                         const duration = video.duration;
+                         const totalFramesToExtract = 8;
+                         const interval = duration > 0 ? duration / totalFramesToExtract : 0;
+
+                         for (let i = 0; i < totalFramesToExtract; i++) {
+                             const seekTime = i * interval;
+                             const frameElement = await captureFrame(seekTime);
+                             resultGrid.appendChild(frameElement);
+                         }
+
+                         showStatus('Analysis complete! You can now create a prompt.', false);
+                         generatePromptButton.style.display = 'block';
+
+                     } catch (error) {
+                         console.error('Error during frame extraction:', error);
+                         showStatus(`An error occurred: ${error.message}`, true);
+                         resetUI();
+                     } finally {
+                         URL.revokeObjectURL(videoURL);
+                         extractButton.disabled = false;
+                         extractButton.textContent = 'Analyze Video';
+                     }
+                 };
+
+                 video.onerror = () => {
+                      showStatus('Failed to load video. Please ensure the format is supported (MP4, WebM).', true);
+                      extractButton.disabled = false;
+                      extractButton.textContent = 'Analyze Video';
+                 };
+             }
+             
+             async function generatePrompt() {
+                 const images = resultGrid.querySelectorAll('img');
+                 if (images.length < 8) {
+                     showStatus('Frame analysis is not complete. Please try again.', true);
+                     return;
+                 }
+
+                 generatePromptButton.disabled = true;
+                 promptResultContainer.style.display = 'block';
+                 promptLoading.style.display = 'flex';
+                 promptOutputWrapper.style.display = 'none';
+
+                 try {
+                     const apiUrl = `/.netlify/functions/gemini`; // Updated URL
+
+                     const spokenWords = spokenWordsInput.value;
+                     const musicChoice = musicSelect.value;
+                     
+                     let textPrompt = `You are a screenwriter and visual director. Based on these 8 sequential video frames, create a single, highly descriptive prompt for a text-to-video AI model.
+
+The final prompt MUST:
+1.  **Be a Cinematic Narrative:** Combine all scenes into one flowing, short story.
+2.  **Be Highly Visual and Detailed:** Describe camera movements (e.g., 'drone shot', 'dramatic close-up'), visual style (e.g., 'photorealistic, 8K, cinematic lighting'), and environmental details.
+3.  **Focus on Action and Emotion:** Clearly describe what the subject is doing.
+4.  **Analyze the Subject in Detail:** If a person is present, specify their estimated ethnicity or race (e.g., 'Southeast Asian woman', 'Caucasian man'), the clothing they are wearing, and their facial expression in detail (e.g., 'a tense face full of concentration', 'a wide, joyous smile').
+5.  **Analyze Text (OCR):** If any text, signs, or logos are visible, mention them and integrate them into the narrative (e.g., 'a neon sign reads "DINER"', 'the newspaper headline reads "NEW HOPE"').
+6.  **Be a Single Paragraph:** The result must be a single, ready-to-use prompt paragraph.`;
+                    
+                    if (spokenWords) {
+                        textPrompt += `\n\n**Incorporate this exact dialogue naturally into the scene (preserve the original language):** "${spokenWords}"`;
+                    }
+                     if (musicChoice && musicChoice !== 'Otomatis berdasarkan video') {
+                        textPrompt += `\n\n**The audio should be:** ${musicChoice}.`;
+                    } else {
+                        textPrompt += `\n\n**For the audio, suggest and incorporate a fitting soundscape or music style based on the video's content.**`;
+                    }
+
+                     let chatHistory = [{
+                         role: "user",
+                         parts: [{ text: textPrompt }]
+                     }];
+
+                     images.forEach(img => {
+                         const base64Data = img.src.split(',')[1];
+                         chatHistory[0].parts.push({
+                             inlineData: {
+                                 mimeType: 'image/jpeg',
+                                 data: base64Data
+                             }
+                         });
+                     });
+
+                     const payload = { contents: chatHistory };
+
+                     const response = await fetch(apiUrl, {
+                         method: 'POST',
+                         headers: { 'Content-Type': 'application/json' },
+                         body: JSON.stringify(payload)
+                     });
+
+                     if (!response.ok) {
+                         const errorData = await response.json();
+                         throw new Error(errorData.error?.message || `API Error: ${response.status}`);
+                     }
+
+                     const result = await response.json();
+                     
+                     if (result.candidates && result.candidates.length > 0 &&
+                         result.candidates[0].content && result.candidates[0].content.parts &&
+                         result.candidates[0].content.parts.length > 0) {
+                       const generatedText = result.candidates[0].content.parts[0].text;
+                       promptOutput.textContent = generatedText;
+                       promptLoading.style.display = 'none';
+                       promptOutputWrapper.style.display = 'block';
+                     } else {
+                       throw new Error('Invalid or empty response from AI.');
+                     }
+
+                 } catch (error) {
+                     console.error('Error generating prompt:', error);
+                     promptOutput.textContent = `Failed to create prompt: ${error.message}`;
+                     promptLoading.style.display = 'none';
+                     promptOutputWrapper.style.display = 'block';
+                     promptOutput.classList.add('text-red-600');
+                 } finally {
+                     generatePromptButton.disabled = false;
+                 }
+             }
+
+             function copyPrompt() {
+                 const textToCopy = promptOutput.textContent;
+                 const textArea = document.createElement("textarea");
+                 textArea.value = textToCopy;
+                 textArea.style.position = "fixed";
+                 document.body.appendChild(textArea);
+                 textArea.focus();
+                 textArea.select();
+                 try {
+                     document.execCommand('copy');
+                     const originalText = copyPromptButton.textContent;
+                     copyPromptButton.textContent = 'Copied!';
+                     setTimeout(() => {
+                         copyPromptButton.textContent = originalText;
+                     }, 2000);
+                 } catch (err) {
+                     console.error('Failed to copy text: ', err);
+                 }
+                 document.body.removeChild(textArea);
+             }
+
+             // --- Event Listeners ---
+             dropZone.addEventListener('click', () => fileInput.click());
+             dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('border-blue-500', 'bg-blue-50'); });
+             dropZone.addEventListener('dragleave', () => dropZone.classList.remove('border-blue-500', 'bg-blue-50'));
+             dropZone.addEventListener('drop', (e) => {
+                 e.preventDefault();
+                 dropZone.classList.remove('border-blue-500', 'bg-blue-50');
+                 if (e.dataTransfer.files.length > 0) {
+                     handleFileSelect(e.dataTransfer.files[0]);
+                 }
+             });
+             fileInput.addEventListener('change', (e) => { if (e.target.files.length > 0) handleFileSelect(e.target.files[0]); });
+             extractButton.addEventListener('click', extractFrames);
+             generatePromptButton.addEventListener('click', generatePrompt);
+             copyPromptButton.addEventListener('click', copyPrompt);
+             
+             function showStatus(message, isError = false) {
+                 statusDiv.textContent = message;
+                 statusDiv.style.display = 'block';
+                 statusDiv.className = isError ? 'text-center mt-4 font-medium text-red-600' : 'text-center mt-4 font-medium text-green-600';
+             }
+             
+             resetUI();
+        }
+
+        // --- BAGIAN 4: GENERATOR PROMPT GABUNGAN ---
+        function setupNewPageVideoGenerator() {
+             const containerId = 'new-page-video-prompt-app-container';
+             if (!document.getElementById(containerId)) return;
+             if (document.getElementById(containerId).getAttribute('data-initialized')) return;
+             document.getElementById(containerId).setAttribute('data-initialized', 'true');
+
+            const dropZone1 = document.getElementById('new-page-drop-zone-1');
+            const fileInput1 = document.getElementById('new-page-video-file-1');
+            const fileInfo1 = document.getElementById('new-page-file-info-1');
+            const placeholder1 = document.getElementById('new-page-placeholder-1');
+            const preview1 = document.getElementById('new-page-preview-1');
+
+            const dropZone2 = document.getElementById('new-page-drop-zone-2');
+            const fileInput2 = document.getElementById('new-page-video-file-2');
+            const fileInfo2 = document.getElementById('new-page-file-info-2');
+            const placeholder2 = document.getElementById('new-page-placeholder-2');
+            const preview2 = document.getElementById('new-page-preview-2');
+
+            const extractButton = document.getElementById('new-page-extract-button');
+            const statusDiv = document.getElementById('new-page-status');
+            const resultGrid = document.getElementById('new-page-result-grid');
+            const generatePromptButton = document.getElementById('new-page-generate-prompt-button');
+            const promptResultContainer = document.getElementById('new-page-prompt-result-container');
+            const promptOutput = document.getElementById('new-page-prompt-output');
+            const copyPromptButton = document.getElementById('new-page-copy-prompt-button');
+            
+            const spokenWordsInput = document.getElementById('new-page-spoken-words');
+            const musicSelect = document.getElementById('new-page-music');
+
+
+             let selectedFiles = [null, null];
+
+             function resetUI() {
+                resultGrid.innerHTML = '';
+                statusDiv.style.display = 'none';
+                extractButton.disabled = true;
+                
+                placeholder1.classList.remove('hidden');
+                placeholder2.classList.remove('hidden');
+                preview1.innerHTML = '';
+                preview2.innerHTML = '';
+                
+                fileInfo1.textContent = 'Belum ada file';
+                fileInfo2.textContent = 'Belum ada file';
+                
+                generatePromptButton.style.display = 'none';
+                promptResultContainer.classList.add('hidden');
+                
+                spokenWordsInput.value = '';
+                musicSelect.value = 'Otomatis berdasarkan media';
+                
+                fileInput1.value = '';
+                fileInput2.value = '';
+                selectedFiles = [null, null];
+             }
+
+            function checkAnalysisButtonState() {
+                if (selectedFiles[0] && selectedFiles[1]) {
+                    extractButton.disabled = false;
+                    showStatus('Semua media siap untuk dianalisis.', false);
+                } else {
+                    extractButton.disabled = true;
+                }
+            }
+
+            async function handleFileSelect(file, index) {
+                if (!file) return;
+
+                showStatus('Memvalidasi media...', false);
+                const infoEl = index === 0 ? fileInfo1 : fileInfo2;
+                const previewEl = index === 0 ? preview1 : preview2;
+                const placeholderEl = index === 0 ? placeholder1 : placeholder2;
+
+                selectedFiles[index] = null;
+                infoEl.textContent = 'Memvalidasi...';
+                previewEl.innerHTML = '';
+                placeholderEl.classList.remove('hidden');
+
+                if (file.type.startsWith('video/')) {
+                    const video = document.createElement('video');
+                    video.preload = 'metadata';
+                    video.src = URL.createObjectURL(file);
+
+                    video.onloadedmetadata = () => {
+                        URL.revokeObjectURL(video.src);
+                        if (video.duration > 10.5) {
+                            showStatus(`Video ${file.name} terlalu panjang (${video.duration.toFixed(1)}s).`, true);
+                            infoEl.textContent = 'Gagal: Video terlalu panjang';
+                        } else {
+                            selectedFiles[index] = file;
+                            infoEl.textContent = file.name;
+                            placeholderEl.classList.add('hidden');
+                            
+                            const previewVideoElement = document.createElement('video');
+                            previewVideoElement.src = URL.createObjectURL(file);
+                            previewVideoElement.controls = false;
+                            previewVideoElement.muted = true;
+                            previewVideoElement.autoplay = true;
+                            previewVideoElement.loop = true;
+                            previewVideoElement.className = "w-full h-full object-cover rounded-xl";
+                            previewEl.appendChild(previewVideoElement);
+                        }
+                        checkAnalysisButtonState();
+                    };
+                    video.onerror = () => {
+                        URL.revokeObjectURL(video.src);
+                        showStatus(`Gagal membaca metadata untuk ${file.name}.`, true);
+                        infoEl.textContent = `Gagal memuat`;
+                        checkAnalysisButtonState();
+                    };
+                } else if (file.type.startsWith('image/')) {
+                    selectedFiles[index] = file;
+                    infoEl.textContent = file.name;
+                    placeholderEl.classList.add('hidden');
+                    
+                    const previewImageElement = document.createElement('img');
+                    previewImageElement.src = URL.createObjectURL(file);
+                    previewImageElement.className = "w-full h-full object-cover rounded-xl";
+                    previewEl.appendChild(previewImageElement);
+                    checkAnalysisButtonState();
+                } else {
+                    showStatus(`${file.name} bukan file video atau gambar.`, true);
+                    infoEl.textContent = 'Format tidak didukung';
+                    checkAnalysisButtonState();
+                }
+            }
+
+
+             async function extractFrames() {
+                 if (selectedFiles.some(f => f === null)) {
+                     showStatus('Silakan unggah kedua media terlebih dahulu.', true);
+                     return;
+                 }
+
+                 extractButton.disabled = true;
+                 extractButton.textContent = 'Processing...';
+                 generatePromptButton.style.display = 'none';
+                 promptResultContainer.classList.add('hidden');
+                 showStatus('Processing...', false);
+                 resultGrid.innerHTML = ''; 
+                 
+                 const allFrames = [];
+
+                 for (const file of selectedFiles) {
+                    if (file.type.startsWith('image/')) {
+                         const img = document.createElement('img');
+                         img.src = await new Promise(resolve => {
+                             const reader = new FileReader();
+                             reader.onload = e => resolve(e.target.result);
+                             reader.readAsDataURL(file);
+                         });
+                         img.alt = `Image: ${file.name}`;
+                         for(let i=0; i<4; i++) allFrames.push(img.cloneNode());
+
+                    } else if (file.type.startsWith('video/')) {
+                        const video = document.createElement('video');
+                        const videoURL = URL.createObjectURL(file);
+                        video.src = videoURL;
+                        const canvas = document.createElement('canvas');
+                        const context = canvas.getContext('2d');
+                        
+                        await new Promise(resolve => video.onloadedmetadata = resolve);
+                        
+                        const duration = video.duration;
+                        const totalFramesToExtract = 4;
+                        const interval = duration > 0 ? duration / totalFramesToExtract : 0;
+
+                        for (let i = 0; i < totalFramesToExtract; i++) {
+                            video.currentTime = i * interval;
+                            await new Promise(resolve => video.onseeked = resolve);
+                            canvas.width = video.videoWidth;
+                            canvas.height = video.videoHeight;
+                            context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+                            const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+                            const img = document.createElement('img');
+                            img.src = dataUrl;
+                            img.alt = `Frame from ${file.name}`;
+                            allFrames.push(img);
+                        }
+                        URL.revokeObjectURL(videoURL);
+                    }
+                 }
+                 
+                 allFrames.forEach(frame => resultGrid.appendChild(frame));
+                 showStatus('Analisis selesai! Anda bisa membuat prompt sekarang.', false);
+                 generatePromptButton.style.display = 'block';
+                 extractButton.disabled = false;
+                 extractButton.textContent = 'Analyze Media';
+             }
+             
+             async function generatePrompt() {
+                 const images = resultGrid.querySelectorAll('img');
+                 if (images.length < 8) {
+                     showStatus('Analisis media belum lengkap. Silakan coba lagi.', true);
+                     return;
+                 }
+
+                 generatePromptButton.disabled = true;
+                 promptResultContainer.classList.remove('hidden');
+                 promptOutput.innerHTML = '<div class="loader mx-auto"></div><p class="text-sm text-gray-500 text-center mt-2">Menyiapkan prompt...</p>';
+
+                 try {
+                     const apiUrl = `/.netlify/functions/gemini`; // Updated URL
+                     const spokenWords = spokenWordsInput.value;
+                     const musicChoice = musicSelect.value;
+                     
+                     let textPrompt = `You are a creative director with a cinematic eye. You will be given a sequence of 8 image frames: the first 4 represent a subject or scene from "Media 1", and the last 4 represent a subject or scene from "Media 2". Your task is to **merge the primary subjects from both media into a single, cohesive, and interactive scene.**
+
+Instead of describing two separate events, you must **invent one new scene** where the subjects from both media exist and interact. For example, if Media 1 is a woman and Media 2 is a glass, the resulting prompt should describe a scene like "a woman holding the glass" or "a woman looking at the glass on a table."
+
+The final prompt MUST be a single, detailed paragraph in English and strictly follow these rules:
+1.  **Identify and Combine Subjects:** First, identify the main subject of Media 1 (e.g., "a woman") and the main subject of Media 2 (e.g., "a glass of water"). Then, create a new, unified scene that places both subjects together in a logical context.
+2.  **Invent a Plausible Interaction:** Describe a natural and interesting interaction between the two subjects. Be creative. The woman could be picking up the glass, drinking from it, or simply having it on her desk while she works. The interaction should feel intentional.
+3.  **Employ Vivid, Cinematic Language:** Describe this new, single scene with rich, visual language. Specify the camera shot (e.g., "medium close-up," "over-the-shoulder shot"), the lighting ("warm, soft light from a nearby window," "moody, dramatic backlighting"), and the overall atmosphere ("a calm, contemplative mood," "a tense, suspenseful atmosphere").
+4.  **Define a Cohesive Visual Style:** Specify a single, consistent aesthetic for the entire prompt. Examples: "hyperrealistic, 8K, cinematic photorealism with a shallow depth of field," "dreamlike fantasy, inspired by oil paintings, with soft focus and glowing particle effects."`;
+
+                    if (spokenWords) {
+                        textPrompt += `\n\n**Incorporate this exact dialogue naturally into the scene (preserve the original language):** "${spokenWords}"`;
+                    }
+                     if (musicChoice && musicChoice !== 'Otomatis berdasarkan media') {
+                        textPrompt += `\n\n**The audio should be:** ${musicChoice}.`;
+                    } else {
+                        textPrompt += `\n\n**For the audio, suggest and incorporate a fitting soundscape or music style based on the visual content.**`;
+                    }
+                     
+                     let chatHistory = [{
+                         role: "user",
+                         parts: [{ text: textPrompt }]
+                     }];
+
+                     images.forEach(img => {
+                         const base64Data = img.src.split(',')[1];
+                         chatHistory[0].parts.push({
+                             inlineData: {
+                                 mimeType: 'image/jpeg',
+                                 data: base64Data
+                             }
+                         });
+                     });
+
+                     const payload = { contents: chatHistory };
+
+                     const response = await fetch(apiUrl, {
+                         method: 'POST',
+                         headers: { 'Content-Type': 'application/json' },
+                         body: JSON.stringify(payload)
+                     });
+
+                     if (!response.ok) {
+                         const errorData = await response.json();
+                         throw new Error(errorData.error?.message || `API Error: ${response.status}`);
+                     }
+
+                     const result = await response.json();
+                     
+                     if (result.candidates && result.candidates.length > 0 &&
+                         result.candidates[0].content && result.candidates[0].content.parts &&
+                         result.candidates[0].content.parts.length > 0) {
+                       const generatedText = result.candidates[0].content.parts[0].text;
+                       promptOutput.textContent = generatedText;
+                     } else {
+                       throw new Error('Invalid or empty response from AI.');
+                     }
+
+                 } catch (error) {
+                     console.error('Error generating prompt:', error);
+                     promptOutput.textContent = `Failed to create prompt: ${error.message}`;
+                     promptOutput.classList.add('text-red-600');
+                 } finally {
+                     generatePromptButton.disabled = false;
+                 }
+             }
+
+             function copyPrompt() {
+                 const textToCopy = promptOutput.textContent;
+                 const textArea = document.createElement("textarea");
+                 textArea.value = textToCopy;
+                 textArea.style.position = "fixed";
+                 document.body.appendChild(textArea);
+                 textArea.focus();
+                 textArea.select();
+                 try {
+                     document.execCommand('copy');
+                     const originalText = copyPromptButton.textContent;
+                     copyPromptButton.textContent = 'Copied!';
+                     setTimeout(() => {
+                         copyPromptButton.textContent = originalText;
+                     }, 2000);
+                 } catch (err) {
+                     console.error('Failed to copy text: ', err);
+                 }
+                 document.body.removeChild(textArea);
+             }
+
+            // --- Event Listeners ---
+            [dropZone1, dropZone2].forEach((zone, index) => {
+                zone.addEventListener('click', () => (index === 0 ? fileInput1 : fileInput2).click());
+                zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('border-blue-500', 'bg-blue-50'); });
+                zone.addEventListener('dragleave', () => zone.classList.remove('border-blue-500', 'bg-blue-50'));
+                zone.addEventListener('drop', async (e) => {
+                    e.preventDefault();
+                    zone.classList.remove('border-blue-500', 'bg-blue-50');
+                    if (e.dataTransfer.files.length > 0) {
+                        await handleFileSelect(e.dataTransfer.files[0], index);
+                    }
+                });
+            });
+            
+            fileInput1.addEventListener('change', async (e) => { if(e.target.files.length > 0) await handleFileSelect(e.target.files[0], 0); });
+            fileInput2.addEventListener('change', async (e) => { if(e.target.files.length > 0) await handleFileSelect(e.target.files[0], 1); });
+
+            extractButton.addEventListener('click', extractFrames);
+            generatePromptButton.addEventListener('click', generatePrompt);
+            copyPromptButton.addEventListener('click', copyPrompt);
+             
+             function showStatus(message, isError = false) {
+                 statusDiv.textContent = message;
+                 statusDiv.style.display = 'block';
+                 statusDiv.className = isError ? 'text-center mt-4 font-medium text-red-600' : 'text-center mt-4 font-medium text-green-600';
+             }
+             
+             resetUI();
+        }
+
+
+        // --- INISIALISASI ---
+        document.addEventListener('DOMContentLoaded', () => {
+            setupIklanGeneratorV3();
+            setupVideoGenerator();
+            setupNewPageVideoGenerator();
+        });
+    </script>
+</body>
+</html>

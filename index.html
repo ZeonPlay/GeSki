@@ -1,413 +1,68 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GeSki</title>
-    <link rel="stylesheet" href="styles/home.css">
-    <link rel="icon" type="image/png" href="assets/image/cloud.png">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GeSki Tools Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" type="image/png" href="assets/image/cloud.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
 </head>
-<body>
-    <div class="burger-menu">
-        <button id="burgerIcon" class="burger-icon">
-            <span class="material-icons">menu</span>
-        </button>
-        <div id="sideNav" class="side-nav hidden">  <!-- Tambahkan class hidden di sini -->
-            <a href="index.html" class="nav-link active">
-                <span class="material-icons">home</span>
-                Home
-            </a>
-            <a href="splitter.html" class="nav-link">
-                <span class="material-icons">content_cut</span>
-                Splitter
-            </a>
-            <a href="skins_editor.html" class="nav-link">
-                <span class="material-icons">face</span>
-                Skins Editor
-            </a>
-            <a href="texts_editor.html" class="nav-link">
-                <span class="material-icons">translate</span>
-                Texts Editor
-            </a>
-            
-            <div class="nav-footer">
-                <p>&copy; GeSki</p>
-                <p>Version 1.0.0</p>
-                <div class="credits-container">
-                    <p class="credits">Special thanks to:</p>
-                    <div class="contributor">
-                        <p>Tabobski</p>
-                        <div class="social-links">
-                            <a href="https://www.instagram.com/tabobskii/profilecard" target="_blank" class="social-link" title="Instagram">
-                                <span class="material-icons">photo_camera</span>
-                            </a>
-                            <a href="https://www.youtube.com/@tabobski" target="_blank" class="social-link" title="YouTube">
-                                <span class="material-icons">play_circle</span>
-                            </a>
-                            <a href="https://www.tiktok.com/@tabobskii" target="_blank" class="social-link" title="TikTok">
-                                <span class="material-icons">music_video</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<body class="bg-gray-50 text-gray-800 antialiased">
+
+  <main class="flex items-center justify-center min-h-screen p-4">
+    <div class="w-full max-w-6xl mx-auto text-center py-12">
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">GeSki Minecraft Tools</h1>
+      <p class="text-md md:text-lg text-gray-600 mb-4">Alat praktis untuk resource pack Minecraft Bedrock Edition</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Splitter -->
+        <a href="splitter.html" class="group bg-white p-8 rounded-xl border border-gray-200 shadow-sm hover:shadow-lg hover:border-blue-500 transition-all duration-300 transform hover:-translate-y-2 flex flex-col items-center gap-4 text-inherit no-underline">
+          <div class="bg-blue-100 text-blue-600 rounded-lg w-12 h-12 flex items-center justify-center">
+            <span class="material-icons text-3xl">content_cut</span>
+          </div>
+          <h2 class="text-xl font-bold text-gray-900">Splitter</h2>
+          <p class="text-gray-600 text-sm">Split &amp; merge skins.json dan geometry.json</p>
+        </a>
+        <!-- Skins Editor -->
+        <a href="skins_editor.html" class="group bg-white p-8 rounded-xl border border-gray-200 shadow-sm hover:shadow-lg hover:border-teal-500 transition-all duration-300 transform hover:-translate-y-2 flex flex-col items-center gap-4 text-inherit no-underline">
+          <div class="bg-teal-100 text-teal-600 rounded-lg w-12 h-12 flex items-center justify-center">
+            <span class="material-icons text-3xl">face</span>
+          </div>
+          <h2 class="text-xl font-bold text-gray-900">Skins Editor</h2>
+          <p class="text-gray-600 text-sm">Edit skinpack Minecraft Bedrock</p>
+        </a>
+        <!-- Texts Editor -->
+        <a href="texts_editor.html" class="group bg-white p-8 rounded-xl border border-gray-200 shadow-sm hover:shadow-lg hover:border-purple-500 transition-all duration-300 transform hover:-translate-y-2 flex flex-col items-center gap-4 text-inherit no-underline">
+          <div class="bg-purple-100 text-purple-600 rounded-lg w-12 h-12 flex items-center justify-center">
+            <span class="material-icons text-3xl">translate</span>
+          </div>
+          <h2 class="text-xl font-bold text-gray-900">Texts Editor</h2>
+          <p class="text-gray-600 text-sm">Kelola file .lang dan terjemahan skinpack</p>
+        </a>
+      </div>
+      <footer class="mt-12 text-sm text-gray-500">
+        <p>&copy; <span id="year"></span> GeSki. All rights reserved.</p>
+        <p class="mt-2">Special thanks to Tabobski</p>
+        <div class="flex justify-center gap-4 mt-2">
+          <a href="https://www.instagram.com/tabobskii/profilecard" target="_blank" title="Instagram" class="hover:text-pink-500 transition-colors">
+            <span class="material-icons text-2xl align-middle">photo_camera</span>
+          </a>
+          <a href="https://www.youtube.com/@tabobski" target="_blank" title="YouTube" class="hover:text-red-600 transition-colors">
+            <span class="material-icons text-2xl align-middle">play_circle</span>
+          </a>
+          <a href="https://www.tiktok.com/@tabobskii" target="_blank" title="TikTok" class="hover:text-black transition-colors">
+            <span class="material-icons text-2xl align-middle">music_video</span>
+          </a>
         </div>
+      </footer>
     </div>
-
-    <main class="home-container">
-        <!-- Hero Section -->
-        <section class="hero">
-            <img src="assets/image/cloud.png" alt="GeSki Logo" class="hero-logo">
-            <h1>GeSki Tools</h1>
-            <p class="tagline">Kumpulan alat untuk pengembangan Resource Pack Minecraft Bedrock</p>
-            <div class="hero-buttons">
-                <button class="cta-button primary" onclick="window.location.href='#tools'">
-                    <span class="material-icons">play_arrow</span>
-                    Mulai
-                </button>
-                <button class="cta-button secondary" onclick="window.location.href='#about'">
-                    <span class="material-icons">info</span>
-                    Pelajari
-                </button>
-            </div>
-        </section>
-
-        <!-- About Section -->
-        <section id="about" class="about-section">
-            <h2>Tentang GeSki Tools</h2>
-            <p class="description">
-                GeSki Tools adalah suite perangkat web untuk membantu pengembang Resource Pack Minecraft Bedrock Edition.
-                Dengan tools ini, Anda dapat mengelola file JSON, skin, model 3D, dan terjemahan dengan lebih mudah dan efisien.
-            </p>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <span class="material-icons">precision_manufacturing</span>
-                    <h3>All-in-One Solution</h3>
-                    <p>Semua tool yang Anda butuhkan dalam satu platform web, tanpa perlu install aplikasi tambahan</p>
-                </div>
-                
-                <div class="feature-card">
-                    <span class="material-icons">code</span>
-                    <h3>Format Standar</h3>
-                    <p>Mengikuti standar format Minecraft Bedrock untuk memastikan kompatibilitas maksimal</p>
-                </div>
-                
-                <div class="feature-card">
-                    <span class="material-icons">security</span>
-                    <h3>Validasi Otomatis</h3>
-                    <p>Sistem validasi built-in untuk mencegah error dan memastikan file yang valid</p>
-                </div>
-
-                <div class="feature-card">
-                    <span class="material-icons">speed</span>
-                    <h3>Efisiensi Kerja</h3>
-                    <p>Proses split dan merge file yang cepat untuk workflow yang lebih efisien</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Tools Overview -->
-        <section id="tools" class="tools-overview">
-            <h2>Tools yang Tersedia</h2>
-            <div class="tools-grid">
-                <div class="tool-card">
-                    <span class="material-icons">content_cut</span>
-                    <h3>Splitter</h3>
-                    <p>Split dan merge file skins.json dan geometry.json dengan mudah</p>
-                    <ul class="tool-features">
-                        <li>Split berdasarkan geometry</li>
-                        <li>Merge multiple files</li>
-                        <li>Validasi otomatis</li>
-                        <li>Preview konten file</li>
-                    </ul>
-                    <a href="splitter.html" class="tool-link">Buka Tool</a>
-                </div>
-
-                <div class="tool-card">
-                    <span class="material-icons">face</span>
-                    <h3>Skins Editor</h3>
-                    <p>Edit properti skin dengan interface yang user-friendly</p>
-                    <ul class="tool-features">
-                        <li>Edit semua properti skin</li>
-                        <li>Support fitur advanced</li>
-                        <li>Preview perubahan</li>
-                        <li>Validasi input</li>
-                    </ul>
-                    <a href="skins_editor.html" class="tool-link">Buka Tool</a>
-                </div>
-
-                <div class="tool-card">
-                    <span class="material-icons">translate</span>
-                    <h3>Texts Editor</h3>
-                    <p>Kelola file terjemahan dengan mudah</p>
-                    <ul class="tool-features">
-                        <li>Edit file .lang</li>
-                        <li>Generate dari skins.json</li>
-                        <li>Format standar</li>
-                        <li>Fitur pencarian</li>
-                    </ul>
-                    <a href="texts_editor.html" class="tool-link">Buka Tool</a>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- Existing Documentation Section -->
-        <section class="documentation">
-            <h2>Dokumentasi Detail</h2>
-            
-            <!-- Splitter -->
-            <div class="doc-section">
-                <h3>
-                    <span class="material-icons">content_cut</span>
-                    Splitter
-                </h3>
-                <div class="doc-content">
-                    <p>Tool untuk memisah dan menggabungkan file skins.json dan geometry.json. Berguna untuk manajemen resource pack yang lebih terorganisir.</p>
-                    
-                    <h4>Fitur Utama:</h4>
-                    <ul>
-                        <li>Split file skins.json berdasarkan geometry yang digunakan</li>
-                        <li>Split file geometry.json menjadi file terpisah per model</li>
-                        <li>Merge beberapa file skins.json menjadi satu</li>
-                        <li>Merge beberapa file geometry.json menjadi satu</li>
-                        <li>Validasi geometry untuk memastikan kompatibilitas</li>
-                    </ul>
-
-                    <h4>Cara Penggunaan:</h4>
-                    <ol>
-                        <li>Upload File:
-                            <ul>
-                                <li>Klik "Upload" untuk memilih file skins.json atau geometry.json</li>
-                                <li>Untuk validasi, upload juga file geometry.json terkait</li>
-                            </ul>
-                        </li>
-                        <li>Memisah File (Split):
-                            <ul>
-                                <li>Pilih item yang ingin dipisah dengan mencentang checkbox</li>
-                                <li>Klik "Split Selected" untuk memisah item terpilih</li>
-                                <li>Atau gunakan "Split All" untuk memisah semua item</li>
-                                <li>File hasil split akan didownload otomatis</li>
-                            </ul>
-                        </li>
-                        <li>Menggabung File (Merge):
-                            <ul>
-                                <li>Pilih beberapa file JSON yang akan digabung</li>
-                                <li>Pastikan format file yang dipilih sesuai (skins/geometry)</li>
-                                <li>Klik "Merge Selected" untuk menggabungkan file terpilih</li>
-                                <li>Hasil penggabungan akan didownload sebagai file baru</li>
-                            </ul>
-                        </li>
-                        <li>Validasi Geometry:
-                            <ul>
-                                <li>Upload file geometry.json yang ingin divalidasi</li>
-                                <li>Sistem akan mengecek format dan struktur file</li>
-                                <li>Pesan error akan muncul jika ada masalah</li>
-                            </ul>
-                        </li>
-                    </ol>
-
-                    <div class="tips">
-                        <h4>Tips:</h4>
-                        <ul>
-                            <li>Selalu backup file original sebelum melakukan split atau merge</li>
-                            <li>Pastikan semua file yang akan di-merge memiliki format yang sama</li>
-                            <li>Gunakan fitur validasi untuk mencegah error saat game berjalan</li>
-                            <li>Nama file hasil split akan menggunakan format yang sesuai dengan isi file</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Skins Editor -->
-            <div class="doc-section">
-                <h3>
-                    <span class="material-icons">face</span>
-                    Skins Editor
-                </h3>
-                <div class="doc-content">
-                    <p>Tool untuk mengedit properti skin seperti geometry, texture, animations, dan properti lainnya. Mendukung semua fitur skin Minecraft Bedrock.</p>
-                    
-                    <h4>Fitur Utama:</h4>
-                    <ul>
-                        <li>Edit semua properti skin (basic dan advanced)</li>
-                        <li>Support untuk fitur enable_attachables dan hide_armor</li>
-                        <li>Manajemen animasi dan attachment</li>
-                        <li>Preview konfigurasi skin</li>
-                        <li>Validasi input untuk mencegah error</li>
-                    </ul>
-
-                    <h4>Cara Penggunaan:</h4>
-                    <ol>
-                        <li>Persiapan File:
-                            <ul>
-                                <li>Upload file skins.json yang ingin diedit</li>
-                                <li>Sistem akan menampilkan daftar skin yang ada</li>
-                            </ul>
-                        </li>
-                        <li>Edit Root Properties:
-                            <ul>
-                                <li>Serialize Name: Nama unik untuk pack (tanpa spasi)</li>
-                                <li>Localization Name: Nama yang akan ditampilkan di game</li>
-                            </ul>
-                        </li>
-                        <li>Manajemen Skin:
-                            <ul>
-                                <li>Tambah skin baru dengan klik "Tambah Skin"</li>
-                                <li>Edit skin yang ada dengan klik tombol "Edit"</li>
-                                <li>Hapus skin dengan tombol "Hapus"</li>
-                            </ul>
-                        </li>
-                        <li>Properti Basic:
-                            <ul>
-                                <li>Localization Name: Nama skin di game</li>
-                                <li>Geometry: Nama model yang digunakan</li>
-                                <li>Texture: Path ke file texture (.png)</li>
-                                <li>Type: Tipe skin (free/paid)</li>
-                            </ul>
-                        </li>
-                        <li>Properti Advanced:
-                            <ul>
-                                <li>Hide Armor: Sembunyikan armor default</li>
-                                <li>Enable Attachables: Aktifkan attachment</li>
-                                <li>Animations: Daftar animasi yang digunakan</li>
-                                <li>Attachments: Daftar attachment yang digunakan</li>
-                                <li>Overlay: Path ke texture overlay</li>
-                                <li>Color: Warna untuk tinting skin</li>
-                            </ul>
-                        </li>
-                    </ol>
-
-                    <div class="tips">
-                        <h4>Tips:</h4>
-                        <ul>
-                            <li>Gunakan nama yang konsisten untuk geometry dan texture</li>
-                            <li>Properti advanced bisa ditambahkan sesuai kebutuhan</li>
-                            <li>Preview perubahan sebelum menyimpan</li>
-                            <li>Backup file original sebelum melakukan perubahan besar</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Texts Editor -->
-            <div class="doc-section">
-                <h3>
-                    <span class="material-icons">translate</span>
-                    Texts Editor
-                </h3>
-                <div class="doc-content">
-                    <p>Tool untuk mengelola file terjemahan (.lang) yang digunakan untuk menampilkan nama pack dan skin dalam berbagai bahasa.</p>
-
-                    <h4>Fitur Utama:</h4>
-                    <ul>
-                        <li>Edit dan tambah terjemahan untuk pack dan skin</li>
-                        <li>Generate file .lang dari skins.json</li>
-                        <li>Validasi format terjemahan</li>
-                        <li>Fitur pencarian dan filter</li>
-                    </ul>
-
-                    <h4>Cara Penggunaan:</h4>
-                    <ol>
-                        <li>Memulai:
-                            <ul>
-                                <li>Upload file .lang yang sudah ada, atau</li>
-                                <li>Generate dari skins.json untuk membuat file baru</li>
-                            </ul>
-                        </li>
-                        <li>Format Terjemahan:
-                            <ul>
-                                <li>Pack: <code>skinpack.PackName=Display Name</code></li>
-                                <li>Skin: <code>skin.PackName.SkinId=Display Name</code></li>
-                                <li>Komentar: <code>key=value ### komentar</code></li>
-                            </ul>
-                        </li>
-                        <li>Mengedit Terjemahan:
-                            <ul>
-                                <li>Klik "Edit" pada terjemahan yang ingin diubah</li>
-                                <li>Isi form dengan nilai baru</li>
-                                <li>Tambahkan komentar jika diperlukan</li>
-                                <li>Klik "Simpan" untuk menyimpan perubahan</li>
-                            </ul>
-                        </li>
-                        <li>Menambah Terjemahan:
-                            <ul>
-                                <li>Klik "Tambah Terjemahan"</li>
-                                <li>Isi key dan value sesuai format</li>
-                                <li>Tambahkan komentar (opsional)</li>
-                                <li>Klik "Simpan" untuk menambahkan</li>
-                            </ul>
-                        </li>
-                    </ol>
-
-                    <div class="tips">
-                        <h4>Tips:</h4>
-                        <ul>
-                            <li>Gunakan fitur generate untuk membuat template awal</li>
-                            <li>Pastikan key terjemahan sesuai dengan skins.json</li>
-                            <li>Manfaatkan komentar untuk dokumentasi</li>
-                            <li>Gunakan fitur pencarian untuk edit cepat</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Feedback Section -->
-            <section id="feedback" class="doc-section">
-                <h3>
-                    <span class="material-icons">feedback</span>
-                    Feedback
-                </h3>
-                <div class="doc-content">
-                    <p>Bantu kami mengembangkan GeSki Tools dengan memberikan masukan atau kritik.</p>
-
-                    <form name="feedback" netlify netlify-honeypot="bot-field" class="feedback-form">
-                        <p class="hidden">
-                            <label>Bot field: <input name="bot-field"></label>
-                        </p>
-                        
-                        <div class="form-group">
-                            <label>Nama <input type="text" name="name" required></label>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Jenis Feedback 
-                                <select name="feedbackType" required>
-                                    <option value="">Pilih jenis feedback</option>
-                                    <option value="bug">Bug Report</option>
-                                    <option value="feature">Saran Fitur</option>
-                                    <option value="improvement">Saran Perbaikan</option>
-                                    <option value="other">Lainnya</option>
-                                </select>
-                            </label>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Pesan <textarea name="message" rows="5" required></textarea></label>
-                        </div>
-
-                        <button type="submit" class="submit-btn">
-                            <span class="material-icons">send</span>
-                            Kirim Feedback
-                        </button>
-                    </form>
-                </div>
-            </section>
-        </section>
-    </main>
-
-  <div class="scroll-buttons">
-    <button id="scrollTopBtn" class="scroll-btn hidden" aria-label="Scroll to top">
-      <span class="material-icons">keyboard_arrow_up</span>
-    </button>
-    <button id="scrollBottomBtn" class="scroll-btn hidden" aria-label="Scroll to bottom">
-      <span class="material-icons">keyboard_arrow_down</span>
-    </button>
-  </div>
-
-    <audio id="clickSound" src="assets/audio/click.ogg" preload="auto"></audio>
-    <script src="scripts/script.js"></script>
+  </main>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
