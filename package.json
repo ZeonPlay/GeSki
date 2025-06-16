@@ -1,0 +1,29 @@
+{
+  "name": "minecraft_tools",
+  "version": "1.0.0",
+  "description": "",
+  "main": "postcss.config.js",
+  "scripts": {
+    "build:css": "postcss src/styles.css -o dist/styles.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZeonPlay/GeSki.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ZeonPlay/GeSki/issues"
+  },
+  "homepage": "https://github.com/ZeonPlay/GeSki#readme",
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.1.10",
+    "postcss": "^8.5.5",
+    "tailwindcss": "^4.1.10"
+  },
+  "devDependencies": {
+    "postcss-cli": "^11.0.1"
+  }
+}
