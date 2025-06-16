@@ -673,3 +673,10 @@ button:hover {
   z-index: 10;
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
+
+body.modal-open {
+  overflow: hidden !important;
+  /* Untuk browser yang bandel, tambahkan juga: */
+  position: fixed;
+  width: 100%;
+}

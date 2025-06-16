@@ -240,6 +240,17 @@
   .visible {
     visibility: visible;
   }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
   .absolute {
     position: absolute;
   }
@@ -1071,6 +1082,17 @@
     @media (width >= 64rem) {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
+  }
+}
+body.shake-flash {
+  animation: shakeFlash 0.35s;
+}
+@keyframes shakeFlash {
+  0% {
+    background: #fffbe6;
+  }
+  100% {
+    background: inherit;
   }
 }
 @property --tw-translate-x {

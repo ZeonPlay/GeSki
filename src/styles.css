@@ -1,1 +1,9 @@
 @import "tailwindcss";
+
+body.shake-flash {
+  animation: shakeFlash 0.35s;
+}
+@keyframes shakeFlash {
+  0% { background: #fffbe6; }
+  100% { background: inherit; }
+}
