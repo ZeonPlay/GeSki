@@ -557,3 +557,70 @@ scrollBottomBtn.addEventListener('click', scrollToBottom);
 
 // Initial check
 handleScroll();
+
+const generateFromGeometryBtn = document.getElementById('generateFromGeometryBtn');
+const importGeometry = document.getElementById('importGeometry');
+
+generateFromGeometryBtn.addEventListener('click', () => {
+  importGeometry.click();
+});
+
+importGeometry.addEventListener('change', () => {
+  const file = importGeometry.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const geometryData = JSON5.parse(e.target.result);
+
+      // Cek format array (baru) atau object (lama)
+      let geometries = [];
+      if (Array.isArray(geometryData.geometries)) {
+        geometries = geometryData.geometries;
+      } else if (Array.isArray(geometryData['minecraft:geometry'])) {
+        geometries = geometryData['minecraft:geometry'];
+      } else {
+        // Format lama: ambil semua key yang diawali "geometry."
+        geometries = Object.keys(geometryData)
+          .filter(k => k.startsWith('geometry.'))
+          .map(k => ({
+            description: {
+              identifier: k,
+              texture_width: geometryData[k].texturewidth || geometryData[k].texture_width || 64,
+              texture_height: geometryData[k].textureheight || geometryData[k].texture_height || 64
+            },
+            ...geometryData[k]
+          }));
+      }
+
+      if (!geometries.length) {
+        alert('geometry.json tidak valid atau tidak ada geometry!');
+        return;
+      }
+
+      // Buat template skins.json
+      const skins = geometries.map((geo, i) => ({
+        localization_name: geo.description.identifier.replace(/^geometry\./, ''),
+        geometry: geo.description.identifier,
+        texture: `${geo.description.identifier.replace(/^geometry\./, '')}.png`,
+        type: 'free'
+      }));
+
+      // === Perubahan utama: tampilkan di editor, bukan langsung download ===
+      skinsData = {
+        skins,
+        serialize_name: "CustomPack",
+        localization_name: "Custom Pack"
+      };
+      displayRootProperties(skinsData);
+      displaySkins(skinsData.skins);
+      fileContent.classList.remove('hidden');
+      alert('skins.json berhasil digenerate dari geometry.json! Silakan edit sebelum diunduh.');
+
+    } catch (err) {
+      alert('Gagal membaca geometry.json: ' + err.message);
+    }
+  };
+  reader.readAsText(file);
+});

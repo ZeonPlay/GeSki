@@ -59,8 +59,23 @@
   <div class="container">
     <h1>Skins Editor</h1>
     <p>Unggah file <code>skins.json</code> Anda untuk mulai mengedit</p>
+    <div class="action-buttons">
+      <button id="loadJsonBtn">
+        <span class="material-icons">upload_file</span>
+        Muat File
+      </button>
+      <div class="generate-group">
+        <button id="generateFromGeometryBtn">
+          <span class="material-icons">auto_awesome</span>
+          Generate
+        </button>
+        <div class="generate-tip">
+          Gunakan file geometry mu
+        </div>
+      </div>
+    </div>
     <input type="file" id="importJson" accept=".json" style="display: none;">
-    <button id="loadJsonBtn">Muat File</button>
+    <input type="file" id="importGeometry" accept=".json" style="display: none;">
 
     <div id="fileContent" class="hidden">
       <h2>Daftar Skin</h2>
