@@ -14,35 +14,39 @@ window.addEventListener('keydown', function(e) {
   }
 });
 
-// Easter Egg: Shake to play "Hey, Stop!"
+// Shake detection and audio playback
 (function() {
   if (!('DeviceMotionEvent' in window)) return;
 
-  let lastX = null, lastY = null, lastZ = null, lastTime = 0;
+  let lastX = null, lastY = null, lastZ = null;
   let shakeThreshold = 15; // Adjust for sensitivity
   let cooldown = false;
   const cooldownTime = 1500; // ms
 
   const audio = document.getElementById('heyStopAudio');
 
+  // iOS 13+ permission request
+  function requestMotionPermission() {
+    if (typeof DeviceMotionEvent.requestPermission === 'function') {
+      DeviceMotionEvent.requestPermission().catch(() => {});
+    }
+  }
+  window.addEventListener('click', requestMotionPermission, { once: true });
+
   function playHeyStop() {
-    // Play audio
     audio.currentTime = 0;
     audio.play();
-
-    // Haptic feedback (if supported)
-    if (navigator.vibrate) navigator.vibrate([80, 40, 80]);
-
-    // Visual feedback (subtle flash)
+    // Visual feedback
     document.body.classList.add('shake-flash');
     setTimeout(() => document.body.classList.remove('shake-flash'), 350);
+    // Haptic feedback (Android)
+    if (navigator.vibrate) navigator.vibrate([80, 40, 80]);
   }
 
   window.addEventListener('devicemotion', function(e) {
     const acc = e.accelerationIncludingGravity;
     if (!acc) return;
 
-    const now = Date.now();
     if (lastX !== null && lastY !== null && lastZ !== null) {
       const deltaX = Math.abs(acc.x - lastX);
       const deltaY = Math.abs(acc.y - lastY);
@@ -57,6 +61,5 @@ window.addEventListener('keydown', function(e) {
     lastX = acc.x;
     lastY = acc.y;
     lastZ = acc.z;
-    lastTime = now;
   }, { passive: true });
 })();
