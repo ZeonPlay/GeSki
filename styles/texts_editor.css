@@ -1,18 +1,39 @@
 /* Font */
+@import url('./variables.css');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+@import url('./_base.css');
 
 /* Theme Variables */
 :root {
   --primary-color: #2563eb;
   --primary-hover: #1d4ed8;
+  --accent: #fbbf24;
   --background: #f8fafc;
-  --card-bg: #ffffff;
+  --card-bg: #fff;
   --text-primary: #1e293b;
   --text-secondary: #64748b;
   --border-color: #e2e8f0;
-  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
-  --radius-md: 0.5rem;
-  --radius-lg: 1rem;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.10);
+  --radius-md: 0.75rem;
+  --radius-lg: 1.5rem;
+  --font-main: 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+/* Minimalist Texts Editor Styles */
+
+:root {
+  --mono-bg: #f9fafb;
+  --mono-card: #fff;
+  --mono-accent: #2563eb;
+  --mono-accent-hover: #1d4ed8;
+  --mono-text: #1e293b;
+  --mono-muted: #64748b;
+  --mono-border: #e5e7eb;
+  --mono-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  --radius: 0.75rem;
+  --transition: 0.25s cubic-bezier(0.4,0,0.2,1);
+  --font-main: 'Inter', 'Segoe UI', Arial, sans-serif;
 }
 
 html, body {
@@ -62,11 +83,19 @@ h1 {
   margin-bottom: 1.5rem;
   font-weight: 700;
 }
+h2 {
+  font-weight: 700;
+  color: var(--mono-text);
+  margin-bottom: 0.5em;
+  letter-spacing: -0.01em;
+}
 p {
   font-size: 1rem;
   color: var(--text-secondary);
   text-align: center;
   margin-bottom: 2rem;
+  color: var(--mono-muted);
+  margin-bottom: 1.5em;
 }
 
 /* Buttons */
@@ -79,10 +108,24 @@ button {
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
+  background: var(--mono-accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background var(--transition), box-shadow var(--transition), transform var(--transition);
+  box-shadow: 0 1px 3px rgba(37,99,235,0.04);
 }
 button:hover {
   background: var(--primary-hover);
   transform: translateY(-1px);
+  background: var(--mono-accent-hover);
+  transform: translateY(-2px);
+  outline: none;
 }
 
 /* Navigation Styles */
@@ -238,6 +281,10 @@ button:hover {
   border-radius: var(--radius-lg);
   padding: 2rem;
   box-shadow: var(--shadow-md);
+  background: var(--mono-card);
+  border-radius: var(--radius);
+  box-shadow: var(--mono-shadow);
+  padding: 2rem;
 }
 #langControls {
   display: flex;
@@ -255,11 +302,15 @@ button:hover {
   padding: 0.75rem;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
+  width: 100%;
 }
 
 /* Translations List */
 #translationsList {
   margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 .translation-item {
   display: flex;
@@ -269,6 +320,18 @@ button:hover {
   border-radius: var(--radius-md);
   margin-bottom: 0.5rem;
   min-height: 60px;
+  display: flex;
+  align-items: center;
+  background: var(--mono-bg);
+  border-radius: var(--radius);
+  padding: 1rem;
+  border: 1px solid var(--mono-border);
+  min-height: 56px;
+  transition: box-shadow var(--transition), border-color var(--transition);
+}
+.translation-item:hover {
+  border-color: var(--mono-accent);
+  box-shadow: 0 2px 8px rgba(37,99,235,0.07);
 }
 .translation-info {
   display: flex;
@@ -282,6 +345,13 @@ button:hover {
   flex: 1;
   font-family: monospace;
   color: var(--text-secondary);
+  flex: 1;
+  font-family: 'JetBrains Mono', 'Fira Mono', monospace;
+  color: var(--mono-muted);
+  font-size: 0.98em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .translation-value {
   flex: 2;
@@ -289,6 +359,10 @@ button:hover {
   text-overflow: ellipsis;
   white-space: nowrap;
   min-width: 200px;
+  color: var(--mono-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .translation-comment {
   color: #94a3b8;
@@ -298,6 +372,14 @@ button:hover {
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 200px;
+  flex: 1;
+  color: var(--mono-muted);
+  font-style: italic;
+  font-size: 0.95em;
+  padding-left: 1em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .translation-actions {
   display: flex;
@@ -312,6 +394,9 @@ button:hover {
   align-items: center;
   justify-content: center;
   gap: 0.25rem;
+  min-width: 44px;
+  padding: 0.5rem 1rem;
+  font-size: 0.95em;
 }
 
 /* Modal */
@@ -327,6 +412,14 @@ button:hover {
   align-items: center;
   z-index: 1000;
   overflow: hidden;
+  position: fixed;
+  inset: 0;
+  background: rgba(30,41,59,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: background var(--transition);
 }
 .modal.hidden {
   display: none;
@@ -340,6 +433,19 @@ button:hover {
   max-height: 90%;
   overflow-y: auto;
   box-shadow: var(--shadow-md);
+  background: var(--mono-card);
+  border-radius: var(--radius);
+  box-shadow: var(--mono-shadow);
+  padding: 2rem;
+  width: 100%;
+  max-width: 420px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: fadeIn 0.25s;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98);}
+  to { opacity: 1; transform: scale(1);}
 }
 .modal-header {
   display: flex;
@@ -359,9 +465,19 @@ button:hover {
   font-size: 1rem;
   cursor: pointer;
   padding: 0.5rem 1rem;
+  background: none;
+  color: var(--mono-muted);
+  border: none;
+  font-size: 1.2em;
+  cursor: pointer;
+  padding: 0.25em 0.5em;
+  transition: color var(--transition);
 }
 .close-btn:hover {
   color: var(--primary-color);
+}
+.close-btn:hover, .close-btn:focus {
+  color: var(--mono-accent);
 }
 .form-group {
   display: flex;
@@ -374,6 +490,7 @@ button:hover {
   justify-content: flex-end;
   gap: 1rem;
 }
+
 #translationForm input {
   padding: 0.75rem;
   border: 1px solid var(--border-color);
@@ -430,8 +547,11 @@ button:hover {
   .translation-actions { width: 100%; justify-content: flex-end; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--border-color); }
 }
 @media (max-width: 600px) {
-  .container { padding: 16px; }
-  button { font-size: 13px; padding: 8px 12px; }
+  .container, #fileContent, .modal-content { padding: 1rem; }
+  h1 { font-size: 1.3rem; }
+  button { font-size: 0.95rem; }
+  .translation-item { flex-direction: column; gap: 0.5rem; }
+  .translation-actions { width: 100%; justify-content: flex-end; }
 }
 @media (max-width: 480px) and (pointer: coarse) {
   body { font-size: 14px; padding: 8px; }
