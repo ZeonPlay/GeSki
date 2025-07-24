@@ -1,0 +1,40 @@
+{
+  "serialize_name": "TABOBSKI",
+  "localization_name": "TABOBSKI",
+  "skins": [
+    {
+      "localization_name": "CuteMobCatPersian",
+      "geometry": "geometry.CuteMobCat",
+      "texture": "CuteMobCatPersian.png",
+      "type": "free",
+      "hide_armor": true
+    },
+    {
+      "localization_name": "rtuya",
+      "geometry": "geometry.gxjgxjgxj",
+      "hide_armor": true,
+      "texture": "cy.png",
+      "type": "free"
+    },
+    {
+      "localization_name": "CuteMobCatBlack",
+      "geometry": "geometry.CuteMobCat",
+      "texture": "CuteMobCatBlack.png",
+      "type": "free",
+      "hide_armor": true
+    },
+    {
+      "localization_name": "Raiden",
+      "geometry": "geometry.cosmetic",
+      "texture": "raiden.png",
+      "type": "free",
+      "hide_armor": true
+    },
+    {
+      "localization_name": "tabob",
+      "geometry": "geometry.tabob",
+      "texture": "tabob.png",
+      "type": "free"
+    }
+  ]
+}

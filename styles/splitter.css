@@ -408,3 +408,33 @@ button:hover {
   .custom-file-btn { font-size: 16px; padding: 12px 18px; }
   .skin-item, .model-item { padding: 16px 20px; }
 }
+
+/* Geometry Search Bar */
+#geometrySearchWrapper {
+  display: block;
+  margin: 16px 0;
+}
+#geometrySearchInput {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 1.05rem;
+  border: 1.5px solid #b0b0b0;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s;
+  background: #f8f8fa;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+}
+#geometrySearchInput:focus {
+  border-color: #4a90e2;
+  background: #fff;
+}
+
+/* Highlighted search text */
+.model-item .highlight {
+  background: #ffe066;
+  color: #222;
+  border-radius: 3px;
+  padding: 0 2px;
+  font-weight: bold;
+}

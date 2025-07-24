@@ -1,0 +1,24 @@
+{
+  "header": {
+    "version": [
+      1,
+      0,
+      1
+    ],
+    "description": "Add Description Here",
+    "name": "TABOBSKI",
+    "uuid": "c907d27b-7d24-4c0b-b58b-82416af23313"
+  },
+  "modules": [
+    {
+      "version": [
+        1,
+        0,
+        0
+      ],
+      "type": "skin_pack",
+      "uuid": "980fb6a6-82d4-43b6-8ad8-0f4a65a997f8"
+    }
+  ],
+  "format_version": 1
+}

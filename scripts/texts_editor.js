@@ -346,36 +346,33 @@ async function generateLangFromSkins() {
                 }
             }]
         });
-        
         const file = await fileHandle.getFile();
         const content = await file.text();
         const skinsData = JSON.parse(content);
-
+        lastSkinsData = skinsData; // <--- simpan untuk validasi
         // Buat data lang
         langData = [];
-
+        // Pakai localization_name dari root untuk key
+        const packLocName = skinsData.localization_name;
         // Tambahkan root skinpack entry
         langData.push({
             type: 'translation',
-            key: `skinpack.${skinsData.serialize_name}`,
-            value: skinsData.localization_name || skinsData.serialize_name,
+            key: `skinpack.${packLocName}`,
+            value: skinsData.localization_name,
             comment: 'Pack name that appears in the store'
         });
-
         // Tambahkan setiap skin entry
         skinsData.skins.forEach(skin => {
             langData.push({
                 type: 'translation',
-                key: `skin.${skinsData.serialize_name}.${skin.localization_name}`,
+                key: `skin.${packLocName}.${skin.localization_name}`,
                 value: skin.localization_name.replace(/_/g, ' '),
                 comment: `Skin name for ${skin.geometry || 'geometry.humanoid.custom'}`
             });
         });
-
         // Tampilkan di editor
         displayTranslations();
         fileContent.classList.remove('hidden');
-
     } catch (err) {
         console.error('Error generating lang:', err);
         alert('Gagal membuat file lang. Pastikan format skins.json valid!');
